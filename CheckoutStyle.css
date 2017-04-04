@@ -1,7 +1,8 @@
 /* We may add some more style to this page later. */
 
 fieldset{
-	width: 300px;
+	border: solid 5px orange;
+	width: 600px;
 	margin: 0 0 0 100px;
 }
 
@@ -22,7 +23,7 @@ select{
 	width: 300px;
 	margin: 0 100px 0 0;
 	position: absolute;
-	top: 30px;
+	top: 32px;
 	right: 0;
 }
 
