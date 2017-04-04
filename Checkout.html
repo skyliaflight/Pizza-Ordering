@@ -23,7 +23,11 @@
 	</nav>
 	<!--End of Navigation-->
 
-	<!--Personal info input-->
+	<!--This section is given a non-static position so we can position
+	its children using "absolute".-->
+	<section class="main-content">
+
+	<!--Personal info and payment input-->
 	<form>
 		
 		<fieldset>
@@ -86,10 +90,27 @@
 		<input type="submit" value="Place Order" class="proceed-btn" id="place-order-btn">
 
 	</form>
-	<!--End of personal info input-->
+	<!--End of personal info and payment input-->
 	
-	<!--Payment info input-->
-	<!--End of payment info input-->
+	<!--Order summary-->
+	<div class="order-summary">
+		<ul class="ordered-items">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+			<li class="total">Total</li>
+		</ul>
+		<ul class="ordered-items-prices">
+			<li>$X.XX</li>
+			<li>$X.XX</li>
+			<li>$X.XX</li>
+			<li class="total">$X.XX</li>
+		</ul>
+	</div>
+	<!--End of order summary-->
+
+	</section>
+	<!--End of main-content-->
 
 	<!--Footer-->
 	<div class="footer">

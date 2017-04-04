@@ -13,6 +13,29 @@ select{
 	margin-bottom: 15px;
 }
 
+.main-content{
+	position: relative;
+}
+
+.order-summary{
+	border: solid 5px orange;
+	width: 300px;
+	margin: 0 100px 0 0;
+	position: absolute;
+	top: 30px;
+	right: 0;
+}
+
+.order-summary ul{
+	display: inline-block;
+	list-style-type: none;
+}
+
+.total{
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
 #place-order-btn{
 	margin: 50px 0 50px 100px;
 	font-size: 25px;
