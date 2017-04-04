@@ -1,5 +1,9 @@
 /* Comments */
 
+.navigation{
+	text-align: center;
+}
+
 .navigation li{
 	display: inline-block;
 }
@@ -14,4 +18,15 @@
 .navigation li div p{
 	text-align: center;
 	color: white;
+}
+
+.row{
+	padding-top: 100px;
+	text-align: center;
+}
+
+.menu-item{
+	display: inline-block;
+	width: 300px;
+	height: 300px;
 }
