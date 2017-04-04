@@ -28,5 +28,16 @@
 .menu-item{
 	display: inline-block;
 	width: 300px;
-	height: 300px;
+	border: solid 5px blue;
+	padding: 0 50px 50px 50px;
+	margin: 0 50px 50px 50px;
+	text-align: center;
+}
+
+.add-btn{
+	background-color: orange;
+	color: white;
+	width: 250px;
+	height: 40px;
+	margin: 0 auto;
 }
