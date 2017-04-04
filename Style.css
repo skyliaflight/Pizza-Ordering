@@ -1,1 +1,17 @@
 /* Comments */
+
+.navigation li{
+	display: inline-block;
+}
+
+.navigation li div{
+	background-color: blue;
+	padding: 10px;
+	height: 50px;
+	width: 100px;
+}
+
+.navigation li div p{
+	text-align: center;
+	color: white;
+}
