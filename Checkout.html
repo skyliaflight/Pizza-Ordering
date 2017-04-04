@@ -4,7 +4,7 @@
 
 <head>
 	<link type="text/css" rel="stylesheet" href="GeneralStyle.css"/>
-	<link type="text/css" rel="stylesheet" href="MenuStyle.css"/>	
+	<link type="text/css" rel="stylesheet" href="CheckoutStyle.css"/>	
 	<script src="jquery-3.1.1.min.js"></script>
 	<script src="Script.js"></script>
 </head>
@@ -54,6 +54,8 @@
 
 		<fieldset>
 		<legend><h3>Billing Address</h3></legend>
+		<span>Same as Delivery Address   </span>
+		<input type="checkbox" name="sameAsDeliveryAddr"><br>
 		Street Address<br>
 		<input type="text" name="streetaddress"><br>
 		City<br>
@@ -80,6 +82,8 @@
 		Security Code<br>
 		<input type="text" name="securitycode"><br>
 		</fieldset>
+
+		<input type="submit" value="Place Order" class="proceed-btn" id="place-order-btn">
 
 	</form>
 	<!--End of personal info input-->
