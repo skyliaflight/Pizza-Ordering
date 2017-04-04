@@ -1,0 +1,11 @@
+/* Comments */
+
+fieldset{
+	width: 300px;
+	margin: 0 auto;
+}
+
+#login-btn{
+	margin: 30px 0 0 0;
+	font-size: 20px;
+}
