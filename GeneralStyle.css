@@ -19,6 +19,15 @@
 	padding: 2px 0;
 }
 
+a{
+	color: white;
+	text-decoration: none;
+}
+
+/*a:hover{
+	background-color: #FCA000;
+}*/
+
 .row{
 	width: 100%;
 }
