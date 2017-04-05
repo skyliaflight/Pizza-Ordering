@@ -1,6 +1,7 @@
 /* Comments */
 
 fieldset{
+	border: solid 5px orange;
 	width: 300px;
 	margin: 0 auto;
 }
