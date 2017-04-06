@@ -91,9 +91,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
             itemPrice = Number(itemPrice.slice(1, itemPrice.length));
 
-            console.log(typeof addedQuantity);
-            console.log(typeof itemPrice);
-
             // Update the quantity in the cart.
             if (addedQuantity > 0) {
               if (!cart.hasOwnProperty(itemName)) {
@@ -104,17 +101,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
                                     this.quantity += addition;
                                     this.price = this.quantity*this.unitPrice;
                                   }};
-                //console.log(cart[itemName]);
               }
               else {
-                //console.log(cart[itemName]);
                 cart[itemName].updateQuantity(addedQuantity);
-                //console.log(cart[itemName]);
               }
 
-              //console.log(cart[itemName]["quantity"]);
-              //console.log(cart[itemName]["unitPrice"]);
-              //console.log(cart[itemName]["price"]);
+              /*
+              for (var item in cart) {
+                console.log(item);
+                console.log(cart[item]["quantity"]);
+                console.log(cart[item]["unitPrice"]);
+                console.log(cart[item]["price"]);
+              }*/
 
               // Update the total number of items.
               totalItems += addedQuantity;
