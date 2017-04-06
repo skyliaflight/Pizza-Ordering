@@ -1,3 +1,5 @@
+// Takes the items stored in the cart and displays them to the page
+// which includes the checkout options.
 
 var cart = {"Cheese": {quantity: 3,
                   unitPrice: 4,
@@ -36,6 +38,7 @@ var cart = {"Cheese": {quantity: 3,
 
 // Event listener for when the cart page loads
 document.addEventListener("DOMContentLoaded", function(event) {
+  var cartButton = document.querySelector("#cart-btn");
   var totalItems = 0;
   var totalPrice = 0;
 
@@ -83,5 +86,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   itemEntry.appendChild(dataEntry);
 
   orderSummary.appendChild(itemEntry);
+
+  cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
 
 }) // End of event listner

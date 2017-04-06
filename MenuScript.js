@@ -1,3 +1,7 @@
+// Retrieves the menu items from a database and displays
+// them on the webpage. Provides options for adding them
+// to the cart.
+
 // Cart object contains menu item names paired with quantities.
 var cart = {};
 

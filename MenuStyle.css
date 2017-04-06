@@ -21,10 +21,12 @@
 
 .increment-btn{
 	border-radius: 5px;
+	margin: 5px;
 }
 
 .decrement-btn{
 	border-radius: 5px;
+	margin: 5px;
 }
 
 .inc-dec-input div{
