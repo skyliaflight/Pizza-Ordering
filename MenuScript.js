@@ -1,3 +1,4 @@
+
 // Array of menu items.
 var menuItems = [
     {
@@ -22,6 +23,7 @@ var menuItems = [
     }
 ];
 
+// Cart object contains menu item names paired with quantities.
 var cart = {};
 
 
@@ -55,24 +57,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
         })
     }
 
-    // When an add to cart button is clicked, the quantity in the quantity box should be
-    // added to the quantity which the user is buying of this menu item.
+    // Responds when an "Add to Cart" button is clicked.
     for (var i = 0; i < addToCartButtons.length; i++) {
         addToCartButtons[i].addEventListener("click", function() {
-            //alert("You clicked.");
             var itemName = this.parentNode.getElementsByClassName("entry-name")[0].innerHTML;
             var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].getElementsByTagName("p")[0].innerHTML);
-            //menuItems[itemName]);
-            //alert(itemName);
-            //alert(Number(this.parentNode.getElementsByClassName("inc-dec-input")[0].getElementsByClassName("quantity-field")[0].getElementsByTagName("p")[0].innerHTML));
-            if (cart.hasOwnProperty(itemName)) {
-              console.log(cart[itemName]);
-              cart[itemName] += addedQuantity;
-              console.log(cart[itemName]);
-            }
-            else {
-              cart[itemName] = addedQuantity;
-              console.log(cart[itemName]);
+
+            // Update the quantity in the cart.
+            if (addedQuantity > 0) {
+              if (!cart.hasOwnProperty(itemName)) {
+                cart[itemName] = addedQuantity;
+                console.log(cart[itemName]);
+              }
+              else {
+                console.log(cart[itemName]);
+                cart[itemName] += addedQuantity;
+                console.log(cart[itemName]);
+              }
+
+              // Update the total number of items.
+              totalItems += addedQuantity;
+
             }
 
         })
