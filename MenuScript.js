@@ -27,12 +27,23 @@ var menuItems = [
 var cart = {};
 
 
+// Create a function which generates a menu entry.
+var createMenuEntry = function() {
+  var entrySpace = document.createElement("div"); // Does this return the div?
+  console.log(entrySpace);
+  //entrySpace.className = "menu-item";
+  //entrySpace.createElement("h1");
+}
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
     var totalItems = 0;
     var cartButton = document.querySelector("#cart-btn");
     var incrementButtons = document.querySelectorAll(".increment-btn");
     var decrementButtons = document.querySelectorAll(".decrement-btn");
     var addToCartButtons = document.querySelectorAll(".add-btn");
+
+    createMenuEntry();
 
     // Creates an event listener for the increment buttons.
     for (var i = 0; i < incrementButtons.length; i++) {
