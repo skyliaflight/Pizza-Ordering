@@ -49,7 +49,7 @@ var createQuantityControls = function() {
 
   return quantityControls;
 
-}
+} // End of function for generating quantity control
 
 // Generates a menu entry for a given object representing a menu item.
 var createMenuEntry = function(item) {
@@ -77,7 +77,7 @@ var createMenuEntry = function(item) {
   entrySpace.appendChild(addButton);
 
   console.log(entrySpace);
-}
+} // End of function for generating menu entry html code
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             quantity = quantity + 1;
             quantityField.innerHTML = String(quantity);
         })
-    }
+    } // End of code for incrementing quantity to add
 
     // Creates an event listener for the decrement buttons.
     for (var i = 0; i < decrementButtons.length; i++) {
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 quantityField.innerHTML = String(quantity);
             }
         })
-    }
+    } // End of code for decrementing quantity to add
 
     // Responds when an "Add to Cart" button is clicked.
     for (var i = 0; i < addToCartButtons.length; i++) {
@@ -137,6 +137,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
         })
-    }
+    } // End of response for adding item to cart
 
-});
+}); // End of event listener
