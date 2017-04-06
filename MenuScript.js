@@ -67,16 +67,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (addedQuantity > 0) {
               if (!cart.hasOwnProperty(itemName)) {
                 cart[itemName] = addedQuantity;
-                console.log(cart[itemName]);
+                //console.log(cart[itemName]);
               }
               else {
-                console.log(cart[itemName]);
+                //console.log(cart[itemName]);
                 cart[itemName] += addedQuantity;
-                console.log(cart[itemName]);
+                //console.log(cart[itemName]);
               }
 
               // Update the total number of items.
               totalItems += addedQuantity;
+              cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + String(totalItems) + ")";
 
             }
 
