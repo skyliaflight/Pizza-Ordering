@@ -17,6 +17,7 @@ var createMenuEntry = function(item) {
   entrySpace.appendChild(entryImage);
 
   var price = document.createElement("h2");
+  price.className = "price-tag";
   price.innerHTML = "$" + String(item["price"]);
   entrySpace.appendChild(price);
 
@@ -33,15 +34,12 @@ var createMenuEntry = function(item) {
 
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
+    // Track the total number of items next to the cart button.
     var totalItems = 0;
     var cartButton = document.querySelector("#cart-btn");
-    var incrementButtons = document.querySelectorAll(".increment-btn");
-    var decrementButtons = document.querySelectorAll(".decrement-btn");
-    var addToCartButtons = document.querySelectorAll(".add-btn");
 
     // Generate the menu if this is the home page
-    // For some reason, the generated menus quantity controlers
-    // do not respond even though they seem tohave the same html code.
+    // the variable menuItems gets imported in the html code.
     var menuArea = this.getElementsByTagName("body")[0].querySelector("#menu");
     var currentRow;
 
@@ -56,6 +54,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       currentRow.appendChild(createMenuEntry(menuItems[i]));
     }
+
+    // Create event listners for the buttons.
+    var incrementButtons = document.querySelectorAll(".increment-btn");
+    var decrementButtons = document.querySelectorAll(".decrement-btn");
+    var addToCartButtons = document.querySelectorAll(".add-btn");
 
     // Creates an event listener for the increment buttons.
     for (var i = 0; i < incrementButtons.length; i++) {
@@ -85,18 +88,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
         addToCartButtons[i].addEventListener("click", function() {
             var itemName = this.parentNode.getElementsByClassName("entry-name")[0].innerHTML;
             var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].innerHTML);
+            var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
+            itemPrice = Number(itemPrice.slice(1, itemPrice.length));
+
+            console.log(typeof addedQuantity);
+            console.log(typeof itemPrice);
 
             // Update the quantity in the cart.
             if (addedQuantity > 0) {
               if (!cart.hasOwnProperty(itemName)) {
-                cart[itemName] = addedQuantity;
+                cart[itemName] = {quantity: addedQuantity,
+                                  unitPrice: itemPrice,
+                                  price: addedQuantity*itemPrice,
+                                  updateQuantity: function(addition) {
+                                    this.quantity += addition;
+                                    this.price = this.quantity*this.unitPrice;
+                                  }};
                 //console.log(cart[itemName]);
               }
               else {
                 //console.log(cart[itemName]);
-                cart[itemName] += addedQuantity;
+                cart[itemName].updateQuantity(addedQuantity);
                 //console.log(cart[itemName]);
               }
+
+              //console.log(cart[itemName]["quantity"]);
+              //console.log(cart[itemName]["unitPrice"]);
+              //console.log(cart[itemName]["price"]);
 
               // Update the total number of items.
               totalItems += addedQuantity;
