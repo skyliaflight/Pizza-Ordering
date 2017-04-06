@@ -2,30 +2,6 @@
 var cart = {};
 
 
-// A function which generates increment and decrement controls.
-var createQuantityControls = function() {
-  var quantityControls = document.createElement("div");
-  quantityControls.className = "inc-dec-input";
-
-  var decrementButton = document.createElement("div");
-  decrementButton.className = "decrement-btn";
-  decrementButton.innerHTML = "-";
-  quantityControls.appendChild(decrementButton);
-
-  var quantityField = document.createElement("div");
-  quantityField.className = "quantity-field";
-  quantityField.innerHTML = "0";
-  quantityControls.appendChild(quantityField);
-
-  var incrementButton = document.createElement("div");
-  incrementButton.className = "increment-btn";
-  incrementButton.innerHTML = "+";
-  quantityControls.appendChild(incrementButton);
-
-  return quantityControls;
-
-} // End of function for generating quantity control
-
 // Generates a menu entry for a given object representing a menu item.
 var createMenuEntry = function(item) {
   var entrySpace = document.createElement("div");
@@ -55,7 +31,7 @@ var createMenuEntry = function(item) {
 } // End of function for generating menu entry html code
 
 
-// Event listener for when the page loads
+// Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
     var totalItems = 0;
     var cartButton = document.querySelector("#cart-btn");
