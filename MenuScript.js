@@ -1,28 +1,3 @@
-
-// Array of menu items.
-var menuItems = [
-    {
-        name: "Cheese",
-        price: 4.00,
-        photo: "http://tammybruce.com/wp-content/uploads/2015/08/pizza.png"
-    },
-    {
-        name: "Pepperoni",
-        price: 5.00,
-        photo: "http://i3.tigernet.com/stories/15/football/pizza.jpg"
-    },
-    {
-        name: "Mushroom",
-        price: 3.00,
-        photo: "http://static6.depositphotos.com/1004868/639/i/950/depositphotos_6399017-stock-photo-pizza-capricciosa.jpg"
-    },
-    {
-        name: "Vegetarian Combo",
-        price: 2.50,
-        photo: "http://static7.depositphotos.com/1013693/755/i/950/depositphotos_7556189-stock-photo-pizza-white-background.jpg"
-    }
-];
-
 // Cart object contains menu item names paired with quantities.
 var cart = {};
 
@@ -76,10 +51,11 @@ var createMenuEntry = function(item) {
   addButton.innerHTML = "<h1>Add to Cart</h1>";
   entrySpace.appendChild(addButton);
 
-  console.log(entrySpace);
+  return entrySpace;
 } // End of function for generating menu entry html code
 
 
+// Event listener for when the page loads
 document.addEventListener("DOMContentLoaded", function(event) {
     var totalItems = 0;
     var cartButton = document.querySelector("#cart-btn");
@@ -87,7 +63,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var decrementButtons = document.querySelectorAll(".decrement-btn");
     var addToCartButtons = document.querySelectorAll(".add-btn");
 
-    createMenuEntry(menuItems[0]);
+    // Generate the menu if this is the home page
+    // For some reason, the generated menus quantity controlers
+    // do not respond even though they seem tohave the same html code.
+    var menuArea = this.getElementsByTagName("body")[0].querySelector("#menu");
+    var currentRow;
+
+    // For each menu item in the database, add it to the menu space.
+    for (var i = 0; i < menuItems.length; i++) {
+      // If index i is even, then start a new row.
+      if (i%2 === 0) {
+        currentRow = document.createElement("div");
+        currentRow.className = "row";
+        menuArea.appendChild(currentRow);
+      }
+
+      currentRow.appendChild(createMenuEntry(menuItems[i]));
+    }
 
     // Creates an event listener for the increment buttons.
     for (var i = 0; i < incrementButtons.length; i++) {
