@@ -27,12 +27,56 @@ var menuItems = [
 var cart = {};
 
 
-// Create a function which generates a menu entry.
-var createMenuEntry = function() {
-  var entrySpace = document.createElement("div"); // Does this return the div?
+// A function which generates increment and decrement controls.
+var createQuantityControls = function() {
+  var quantityControls = document.createElement("div");
+  quantityControls.className = "inc-dec-input";
+
+  var decrementButton = document.createElement("div");
+  decrementButton.className = "decrement-btn";
+  decrementButton.innerHTML = "-";
+  quantityControls.appendChild(decrementButton);
+
+  var quantityField = document.createElement("div");
+  quantityField.className = "quantity-field";
+  quantityField.innerHTML = "0";
+  quantityControls.appendChild(quantityField);
+
+  var incrementButton = document.createElement("div");
+  incrementButton.className = "increment-btn";
+  incrementButton.innerHTML = "+";
+  quantityControls.appendChild(incrementButton);
+
+  return quantityControls;
+
+}
+
+// Generates a menu entry for a given object representing a menu item.
+var createMenuEntry = function(item) {
+  var entrySpace = document.createElement("div");
+  entrySpace.className = "menu-item";
+
+  var entryName = document.createElement("h1");
+  entryName.className = "entry-name";
+  entryName.innerHTML = item["name"];
+  entrySpace.appendChild(entryName);
+
+  var entryImage = document.createElement("img");
+  entryImage.src = item["photo"];
+  entrySpace.appendChild(entryImage);
+
+  var price = document.createElement("h2");
+  price.innerHTML = "$" + String(item["price"]);
+  entrySpace.appendChild(price);
+
+  entrySpace.appendChild(createQuantityControls());
+
+  var addButton = document.createElement("div");
+  addButton.className = "add-btn";
+  addButton.innerHTML = "<h1>Add to Cart</h1>";
+  entrySpace.appendChild(addButton);
+
   console.log(entrySpace);
-  //entrySpace.className = "menu-item";
-  //entrySpace.createElement("h1");
 }
 
 
@@ -43,12 +87,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var decrementButtons = document.querySelectorAll(".decrement-btn");
     var addToCartButtons = document.querySelectorAll(".add-btn");
 
-    createMenuEntry();
+    createMenuEntry(menuItems[0]);
 
     // Creates an event listener for the increment buttons.
     for (var i = 0; i < incrementButtons.length; i++) {
         incrementButtons[i].addEventListener("click", function() {
-            var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0].getElementsByTagName("p")[0];
+            var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
             var quantity = Number(quantityField.innerHTML);
             quantity = quantity + 1;
             quantityField.innerHTML = String(quantity);
@@ -58,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // Creates an event listener for the decrement buttons.
     for (var i = 0; i < decrementButtons.length; i++) {
         decrementButtons[i].addEventListener("click", function() {
-            var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0].getElementsByTagName("p")[0];
+            var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
             var quantity = Number(quantityField.innerHTML);
 
             if (quantity > 0) {
@@ -72,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     for (var i = 0; i < addToCartButtons.length; i++) {
         addToCartButtons[i].addEventListener("click", function() {
             var itemName = this.parentNode.getElementsByClassName("entry-name")[0].innerHTML;
-            var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].getElementsByTagName("p")[0].innerHTML);
+            var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].innerHTML);
 
             // Update the quantity in the cart.
             if (addedQuantity > 0) {
