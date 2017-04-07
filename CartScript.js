@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     orderSummary.appendChild(itemEntry);
 
-    //totalItems += cart[item]["quantity"];
     totalPrice += cart[item]["price"];
   }
 

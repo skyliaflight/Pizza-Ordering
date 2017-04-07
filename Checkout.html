@@ -5,6 +5,7 @@
 <head>
 	<link type="text/css" rel="stylesheet" href="GeneralStyle.css"/>
 	<link type="text/css" rel="stylesheet" href="CheckoutStyle.css"/>
+	<script src="globalUserInfo.js"></script>
 	<script src="CheckoutScript.js"></script>
 </head>
 
@@ -29,7 +30,7 @@
 				</div></a>
 			</li>
 			<li>
-				<a href="#"><div>
+				<a href="#"><div id="cart-btn">
 					<h1>Cart (0)</h1>
 				</div></a>
 			</li>
@@ -120,20 +121,8 @@
 	<!--End of personal info and payment input-->
 
 	<!--Order summary-->
-	<div class="order-summary">
-		<ul class="ordered-items">
-			<li>Item 1</li>
-			<li>Item 2</li>
-			<li>Item 3</li>
-			<li class="total">Total</li>
-		</ul>
-		<ul class="ordered-items-prices">
-			<li>$X.XX</li>
-			<li>$X.XX</li>
-			<li>$X.XX</li>
-			<li class="total">$X.XX</li>
-		</ul>
-	</div>
+	<table class="order-summary">
+	</table>
 	<!--End of order summary-->
 
 	</section>
