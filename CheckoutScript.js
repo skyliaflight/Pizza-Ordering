@@ -1,3 +1,6 @@
+// Find a way to perfect the function of the checkbox
+// for copying the delivery address to the billing
+// address.
 
 // Event listener for when the checkout page loads
 // Generates the order summary to the right
@@ -48,6 +51,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
   orderSummary.appendChild(itemEntry);
 
   cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
+
+  // Copy delivery address to billing address when the user clicks
+  // the right checkbox.
+  var copyAddrBox = document.getElementsByName("sameAsDeliveryAddr")[0];
+
+  copyAddrBox.addEventListener("click", function (event) {
+    var streetAddresses = document.getElementsByName("streetaddress");
+    var cities = document.getElementsByName("city");
+    var zipCodes = document.getElementsByName("zipcode");
+    streetAddresses[1].value = streetAddresses[0].value;
+    cities[1].value = cities[0].value;
+    zipCodes[1].value = zipCodes[0].value;
+  });
 
   // Check content when submit button gets clicked.
   var submitButton = this.querySelector("#place-order-btn");
@@ -101,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     }
 
-    // Check the payment information
-  });
+  }); // End of Submit Button event listner
 
 }) // End of event listner
