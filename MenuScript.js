@@ -1,10 +1,8 @@
 // Retrieves the menu items from a database and displays
 // them on the webpage. Provides options for adding them
-// to the cart.
+// to the cart in the globalUserInfo file.
 
-// Cart object contains menu item names paired with quantities.
-var cart = {};
-
+//cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
 
 // Generates a menu entry for a given object representing a menu item.
 var createMenuEntry = function(item) {
@@ -38,10 +36,6 @@ var createMenuEntry = function(item) {
 
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
-    // Track the total number of items next to the cart button.
-    var totalItems = 0;
-    var cartButton = document.querySelector("#cart-btn");
-
     // Generate the menu if this is the home page
     // the variable menuItems gets imported in the html code.
     var menuArea = this.getElementsByTagName("body")[0].querySelector("#menu");
@@ -110,8 +104,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 cart[itemName].updateQuantity(addedQuantity);
               }
 
-              /*
-              for (var item in cart) {
+
+              /*for (var item in cart) {
                 console.log(item);
                 console.log(cart[item]["quantity"]);
                 console.log(cart[item]["unitPrice"]);

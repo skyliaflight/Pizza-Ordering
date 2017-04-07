@@ -1,46 +1,10 @@
 // Takes the items stored in the cart and displays them to the page
 // which includes the checkout options.
 
-var cart = {"Cheese": {quantity: 3,
-                  unitPrice: 4,
-                  price: 12,
-                  updateQuantity: function(addition) {
-                    this.quantity += addition;
-                    this.price = this.quantity*this.unitPrice;
-                  }
-                },
-        "Pepperoni": {quantity: 3,
-                          unitPrice: 5,
-                          price: 15,
-                          updateQuantity: function(addition) {
-                            this.quantity += addition;
-                            this.price = this.quantity*this.unitPrice;
-                          }
-                        },
-        "Mushroom": {quantity: 2,
-                          unitPrice: 3,
-                          price: 6,
-                          updateQuantity: function(addition) {
-                            this.quantity += addition;
-                            this.price = this.quantity*this.unitPrice;
-                          }
-                        },
-        "Vegetarian Combo": {quantity: 4,
-                          unitPrice: 2.5,
-                          price: 10,
-                          updateQuantity: function(addition) {
-                            this.quantity += addition;
-                            this.price = this.quantity*this.unitPrice;
-                          }
-                        }
-        }
-
-
 // Event listener for when the cart page loads
 document.addEventListener("DOMContentLoaded", function(event) {
-  var cartButton = document.querySelector("#cart-btn");
-  var totalItems = 0;
-  var totalPrice = 0;
+  //var cartButton = document.querySelector("#cart-btn");
+  //var totalItems = 0;
 
   // List items from the cart in the order-summary.
   var orderSummary = document.getElementsByClassName("order-summary")[0];
@@ -64,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     orderSummary.appendChild(itemEntry);
 
-    totalItems += cart[item]["quantity"];
+    //totalItems += cart[item]["quantity"];
     totalPrice += cart[item]["price"];
   }
 
