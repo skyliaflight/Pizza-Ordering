@@ -53,29 +53,54 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var submitButton = this.querySelector("#place-order-btn");
 
   submitButton.addEventListener("click", function (event) {
+    // A function for matching
+    var matchesExactly = function (text, pattern) {
+      var matches = text.match(pattern);
+      if (matches == null || matches[0] != text) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+
     // Check the phone number
     var phoneNumbers = document.getElementsByName("phone");
-
     for (var i = 0; i < phoneNumbers.length; i++) {
-      var matches = phoneNumbers[i].value.match("[0-9]{10}");
-      if (matches == null || matches[0] != phoneNumbers[i].value) {
-        alert("Phone number is invalid\nMake sure to include area code")
+      if (!matchesExactly(phoneNumbers[i].value, "[0-9]{10}")) {
+        alert("Phone number is invalid\nMake sure to include area code");
       }
     }
 
     // Check the email
     var emails = document.getElementsByName("email");
-
     for (var i = 0; i < emails.length; i++) {
-      var matches = emails[i].value.match("([A-Z]|[a-z]|[0-9])+@[a-z]+\.com");
-      if (matches == null || matches[0] != emails[i].value) {
+      if (!matchesExactly(emails[i].value, "([A-Z]|[a-z]|[0-9])+@[a-z]+\.com")) {
         alert("Invalid email address");
       }
     }
 
     // Check the addresses
-    var streetAddresses = document.getElementsByname("streetaddress");
-    
+    var streetAddresses = document.getElementsByName("streetaddress");
+    for (var i = 0; i < streetAddresses.length; i++) {
+      if (!matchesExactly(streetAddresses[i].value, "[0-9]+ ([A-Z]|[a-z]| )+")) {
+        alert("Invalid street address(es)");
+      }
+    }
+
+    var cities = document.getElementsByName("city");
+    for (var i = 0; i < cities.length; i++) {
+      if (!matchesExactly(cities[i].value, "([A-Z]|[a-z]| )+")) {
+        alert("Invalid city name(s)");
+      }
+    }
+
+    var zipCodes = document.getElementsByName("zipcode");
+    for (var i = 0; i < zipCodes.length; i++) {
+      if (!matchesExactly(zipCodes[i].value, "[0-9]{5}")) {
+        alert("Invalid zipcode");
+      }
+    }
+
     // Check the payment information
   });
 
