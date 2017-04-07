@@ -56,13 +56,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // the right checkbox.
   var copyAddrBox = document.getElementsByName("sameAsDeliveryAddr")[0];
 
-  copyAddrBox.addEventListener("click", function (event) {
+  copyAddrBox.addEventListener("change", function (event) {
     var streetAddresses = document.getElementsByName("streetaddress");
     var cities = document.getElementsByName("city");
     var zipCodes = document.getElementsByName("zipcode");
-    streetAddresses[1].value = streetAddresses[0].value;
-    cities[1].value = cities[0].value;
-    zipCodes[1].value = zipCodes[0].value;
+
+    if (copyAddrBox.checked == true) {
+      streetAddresses[1].value = streetAddresses[0].value;
+      cities[1].value = cities[0].value;
+      zipCodes[1].value = zipCodes[0].value;
+    }
+    else {
+      streetAddresses[1].value = "";
+      cities[1].value = "";
+      zipCodes[1].value = "";       
+    }
+
   });
 
   // Check content when submit button gets clicked.
