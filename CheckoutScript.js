@@ -1,6 +1,3 @@
-var formAction = function() {
-  console.log("The form was submitted.");
-}
 
 // Event listener for when the checkout page loads
 // Generates the order summary to the right
@@ -51,5 +48,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
   orderSummary.appendChild(itemEntry);
 
   cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
+
+  // Check content when submit button gets clicked.
+  var submitButton = this.querySelector("#place-order-btn");
+
+  submitButton.addEventListener("click", function (event) {
+    // Check the phone number
+    phoneNumbers = document.getElementsByName("phone");
+
+    for (var i = 0; i < phoneNumbers.length; i++) {
+      if (phoneNumbers[i].value.length === 10) {
+        for (var k = 0; k < phoneNumbers[i].value.length; k++) {
+          if (!"0123456789".includes(phoneNumbers[i].value[k])) {
+            alert("Phone number contains invalid character(s)");
+          }
+        }
+      }
+      else {
+        alert("Phone number contains an invalid number of characters");
+      }
+    }
+
+    // Check the email
+    // Check the addresses
+    // Check the payment information
+  });
 
 }) // End of event listner
