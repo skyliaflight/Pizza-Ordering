@@ -54,23 +54,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   submitButton.addEventListener("click", function (event) {
     // Check the phone number
-    phoneNumbers = document.getElementsByName("phone");
+    var phoneNumbers = document.getElementsByName("phone");
 
     for (var i = 0; i < phoneNumbers.length; i++) {
-      if (phoneNumbers[i].value.length === 10) {
-        for (var k = 0; k < phoneNumbers[i].value.length; k++) {
-          if (!"0123456789".includes(phoneNumbers[i].value[k])) {
-            alert("Phone number contains invalid character(s)");
-          }
-        }
-      }
-      else {
-        alert("Phone number contains an invalid number of characters");
+      var matches = phoneNumbers[i].value.match("[0-9]{10}");
+      if (matches == null || matches[0] != phoneNumbers[i].value) {
+        alert("Phone number is invalid\nMake sure to include area code")
       }
     }
 
     // Check the email
+    var emails = document.getElementsByName("email");
+
+    for (var i = 0; i < emails.length; i++) {
+      var matches = emails[i].value.match("([A-Z]|[a-z]|[0-9])+@[a-z]+\.com");
+      if (matches == null || matches[0] != emails[i].value) {
+        alert("Invalid email address");
+      }
+    }
+
     // Check the addresses
+    var streetAddresses = document.getElementsByname("streetaddress");
+    
     // Check the payment information
   });
 
