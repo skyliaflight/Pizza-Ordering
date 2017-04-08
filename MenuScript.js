@@ -28,6 +28,8 @@ var createMenuEntry = function(item) {
   addButton.innerHTML = "<h1>Add to Cart</h1>";
   entrySpace.appendChild(addButton);
 
+  console.log(entrySpace);
+
   return entrySpace;
 } // End of function for generating menu entry html code
 
@@ -70,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         })
     } // End of code for incrementing quantity to add
 
+    console.log("We reached point C.");
+
     // Creates an event listener for the decrement buttons.
     for (var i = 0; i < decrementButtons.length; i++) {
         decrementButtons[i].addEventListener("click", function() {
@@ -90,6 +94,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].innerHTML);
             var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
             itemPrice = Number(itemPrice.slice(1, itemPrice.length));
+            /*console.log("We got this far.");
+
+            $.get("http://b5112808.ngrok.io/cart/Rachel/58e848f52f149384fabbcd93", function(response) {
+              console.log("We got the response from the cart.");
+            });*/
 
             // Update the quantity in the cart.
             if (addedQuantity > 0) {
