@@ -2,8 +2,6 @@
 // them on the webpage. Provides options for adding them
 // to the cart in the globalUserInfo file.
 
-//cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
-
 // Generates a menu entry for a given object representing a menu item.
 var createMenuEntry = function(item) {
   var entrySpace = document.createElement("div");
@@ -36,22 +34,26 @@ var createMenuEntry = function(item) {
 
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
-    // Generate the menu if this is the home page
+    // Generate the menu. In the offline version,
     // the variable menuItems gets imported in the html code.
-    var menuArea = this.getElementsByTagName("body")[0].querySelector("#menu");
-    var currentRow;
+    $.get("http://b5112808.ngrok.io/menu/Rachel", function(response) {
+      var menuItems = response;
+      var menuArea = document.getElementsByTagName("body")[0].querySelector("#menu");
+      var currentRow;
 
-    // For each menu item in the database, add it to the menu space.
-    for (var i = 0; i < menuItems.length; i++) {
-      // If index i is even, then start a new row.
-      if (i%2 === 0) {
-        currentRow = document.createElement("div");
-        currentRow.className = "row";
-        menuArea.appendChild(currentRow);
+      // For each menu item in the database, add it to the menu space.
+      for (var i = 0; i < menuItems.length; i++) {
+        // If index i is even, then start a new row.
+        if (i%2 === 0) {
+          currentRow = document.createElement("div");
+          currentRow.className = "row";
+          menuArea.appendChild(currentRow);
+        }
+
+        currentRow.appendChild(createMenuEntry(menuItems[i]));
       }
 
-      currentRow.appendChild(createMenuEntry(menuItems[i]));
-    }
+    }); // End of code for generating menu
 
     // Create event listners for the buttons.
     var incrementButtons = document.querySelectorAll(".increment-btn");
