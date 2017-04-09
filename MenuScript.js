@@ -28,8 +28,6 @@ var createMenuEntry = function(item) {
   addButton.innerHTML = "<h1>Add to Cart</h1>";
   entrySpace.appendChild(addButton);
 
-  console.log(entrySpace);
-
   return entrySpace;
 } // End of function for generating menu entry html code
 
@@ -58,86 +56,60 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     }); // End of code for generating menu
 
-    // Create event listners for the buttons.
-    // The creating of event listeners fails because this
-    // executes before the menu is created. Look up "Event Delegation".
-    // Assign the event listener to the hard-coded parent instead.
-    var incrementButtons = document.querySelectorAll(".increment-btn");
-    var decrementButtons = document.querySelectorAll(".decrement-btn");
-    var addToCartButtons = document.querySelectorAll(".add-btn");
-
     // Creates an event listener for the increment buttons.
-    for (var i = 0; i < incrementButtons.length; i++) {
-        incrementButtons[i].addEventListener("click", function() {
-            var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
-            var quantity = Number(quantityField.innerHTML);
-            quantity = quantity + 1;
-            quantityField.innerHTML = String(quantity);
-        })
-    } // End of code for incrementing quantity to add
-
-    // Creates an event listener for the decrement buttons.
-    for (var i = 0; i < decrementButtons.length; i++) {
-        decrementButtons[i].addEventListener("click", function() {
-            var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
-            var quantity = Number(quantityField.innerHTML);
-
-            if (quantity > 0) {
-                quantity = quantity - 1;
-                quantityField.innerHTML = String(quantity);
-            }
-        })
-    } // End of code for decrementing quantity to add
-
-    // Responds when an "Add to Cart" button is clicked.
-    for (var i = 0; i < addToCartButtons.length; i++) {
-        addToCartButtons[i].addEventListener("click", function() {
-            var itemName = this.parentNode.getElementsByClassName("entry-name")[0].innerHTML;
-            var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].innerHTML);
-            var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
-            itemPrice = Number(itemPrice.slice(1, itemPrice.length));
-
-            /*
-            $.get("http://b5112808.ngrok.io/cart/Rachel/58e848f52f149384fabbcd93", function(response) {
-              console.log("We got the response from the cart.");
-            });*/
-
-            // Update the quantity in the cart.
-            if (addedQuantity > 0) {
-              if (!cart.hasOwnProperty(itemName)) {
-                cart[itemName] = {quantity: addedQuantity,
-                                  unitPrice: itemPrice,
-                                  price: addedQuantity*itemPrice,
-                                  updateQuantity: function(addition) {
-                                    this.quantity += addition;
-                                    this.price = this.quantity*this.unitPrice;
-                                  }};
-              }
-              else {
-                cart[itemName].updateQuantity(addedQuantity);
-              }
-
-              /*for (var item in cart) {
-                console.log(item);
-                console.log(cart[item]["quantity"]);
-                console.log(cart[item]["unitPrice"]);
-                console.log(cart[item]["price"]);
-              }*/
-
-              // Update the total number of items.
-              totalItems += addedQuantity;
-              cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + String(totalItems) + ")";
-
-            }
-
-        })
-    } // End of response for adding item to cart
-
-    /*$('#menu').on('click', '.increment-btn', function(event) {
+    $('#menu').on('click', '.increment-btn', function(event) {
       var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
       var quantity = Number(quantityField.innerHTML);
       quantity = quantity + 1;
       quantityField.innerHTML = String(quantity);
-    });*/
+    }); // End of code for incrementing quantity to add
+
+    // Creates an event listener for the decrement buttons.
+    $('#menu').on('click', '.decrement-btn', function(event) {
+      var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
+      var quantity = Number(quantityField.innerHTML);
+
+      if (quantity > 0) {
+          quantity = quantity - 1;
+          quantityField.innerHTML = String(quantity);
+      }
+    }); // End of code for decrementing quantity to add
+
+    // Responds when an "Add to Cart" button is clicked
+    $('#menu').on('click', '.add-btn', function(event) {
+
+        var itemName = this.parentNode.getElementsByClassName("entry-name")[0].innerHTML;
+        var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].innerHTML);
+        var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
+        itemPrice = Number(itemPrice.slice(1, itemPrice.length));
+
+        // Update the quantity in the cart.
+        if (addedQuantity > 0) {
+          if (!cart.hasOwnProperty(itemName)) {
+            cart[itemName] = {quantity: addedQuantity,
+                              unitPrice: itemPrice,
+                              price: addedQuantity*itemPrice,
+                              updateQuantity: function(addition) {
+                                this.quantity += addition;
+                                this.price = this.quantity*this.unitPrice;
+                              }};
+          }
+          else {
+            cart[itemName].updateQuantity(addedQuantity);
+          }
+
+          /*for (var item in cart) {
+            console.log(item);
+            console.log(cart[item]["quantity"]);
+            console.log(cart[item]["unitPrice"]);
+            console.log(cart[item]["price"]);
+          }*/
+
+          // Update the total number of items.
+          totalItems += addedQuantity;
+          cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + String(totalItems) + ")";
+
+        }
+    }); // End of response for clicking an "Add to Cart" button
 
 }); // End of event listener
