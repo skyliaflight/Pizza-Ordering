@@ -83,31 +83,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
         itemPrice = Number(itemPrice.slice(1, itemPrice.length));
 
-        // Update the quantity in the cart.
+        // If the added quantity is greater than 0...
         if (addedQuantity > 0) {
-          if (!cart.hasOwnProperty(itemName)) {
-            cart[itemName] = {quantity: addedQuantity,
-                              unitPrice: itemPrice,
-                              price: addedQuantity*itemPrice,
-                              updateQuantity: function(addition) {
-                                this.quantity += addition;
-                                this.price = this.quantity*this.unitPrice;
-                              }};
-          }
-          else {
-            cart[itemName].updateQuantity(addedQuantity);
-          }
 
-          /*for (var item in cart) {
-            console.log(item);
-            console.log(cart[item]["quantity"]);
-            console.log(cart[item]["unitPrice"]);
-            console.log(cart[item]["price"]);
-          }*/
+          // ...add the items to the cart.
+          $.get("http://thiman.me:1337/cart/Rachel", function(response) {
+            var cart = response[0];
 
-          // Update the total number of items.
-          totalItems += addedQuantity;
-          cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + String(totalItems) + ")";
+            if (!cart.hasOwnProperty(itemName)) {
+              cart[itemName] = {quantity: addedQuantity,
+                                unitPrice: itemPrice,
+                                price: addedQuantity*itemPrice/*,
+                                updateQuantity: function(addition) {
+                                  this.quantity += addition;
+                                  this.price = this.quantity*this.unitPrice;
+                                }*/};
+            }
+            else {
+              //cart[itemName].updateQuantity(addedQuantity);
+              cart[itemName]["quantity"] += addedQuantity;
+              cart[itemName]["price"] = cart[itemName]["quantity"]*cart[itemName]["unitPrice"];
+            }
+
+            // Here, we need to update the cart that sits on the server.
+
+            console.log(cart);
+
+            // Update the total number of items.
+            totalItems += addedQuantity;
+            cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + String(totalItems) + ")";
+
+          });
 
         }
     }); // End of response for clicking an "Add to Cart" button
