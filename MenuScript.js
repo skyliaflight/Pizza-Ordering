@@ -36,9 +36,10 @@ var createMenuEntry = function(item) {
 
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
-    // Generate the menu. In the offline version,
+    // Generate the menu. This version pulls the menu items from
+    // a database server at the given URL. In the offline version,
     // the variable menuItems gets imported in the html code.
-    $.get("http://b5112808.ngrok.io/menu/Rachel", function(response) {
+    $.get("http://thiman.me:1337/menu/Rachel", function(response) {
       var menuItems = response;
       var menuArea = document.getElementsByTagName("body")[0].querySelector("#menu");
       var currentRow;
@@ -58,6 +59,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }); // End of code for generating menu
 
     // Create event listners for the buttons.
+    // The creating of event listeners fails because this
+    // executes before the menu is created. Look up "Event Delegation".
+    // Assign the event listener to the hard-coded parent instead.
     var incrementButtons = document.querySelectorAll(".increment-btn");
     var decrementButtons = document.querySelectorAll(".decrement-btn");
     var addToCartButtons = document.querySelectorAll(".add-btn");
@@ -71,8 +75,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             quantityField.innerHTML = String(quantity);
         })
     } // End of code for incrementing quantity to add
-
-    console.log("We reached point C.");
 
     // Creates an event listener for the decrement buttons.
     for (var i = 0; i < decrementButtons.length; i++) {
@@ -94,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
             var addedQuantity = Number(this.parentNode.getElementsByClassName("quantity-field")[0].innerHTML);
             var itemPrice = this.parentNode.getElementsByClassName("price-tag")[0].innerHTML;
             itemPrice = Number(itemPrice.slice(1, itemPrice.length));
-            /*console.log("We got this far.");
 
+            /*
             $.get("http://b5112808.ngrok.io/cart/Rachel/58e848f52f149384fabbcd93", function(response) {
               console.log("We got the response from the cart.");
             });*/
@@ -115,7 +117,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 cart[itemName].updateQuantity(addedQuantity);
               }
 
-
               /*for (var item in cart) {
                 console.log(item);
                 console.log(cart[item]["quantity"]);
@@ -131,5 +132,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         })
     } // End of response for adding item to cart
+
+    /*$('#menu').on('click', '.increment-btn', function(event) {
+      var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
+      var quantity = Number(quantityField.innerHTML);
+      quantity = quantity + 1;
+      quantityField.innerHTML = String(quantity);
+    });*/
 
 }); // End of event listener
