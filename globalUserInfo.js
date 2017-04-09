@@ -1,13 +1,13 @@
 // Cart object contains menu item names paired with quantities.
 /*var cart = {};*/
 // Track the total number of items next to the cart button.
-var totalItems = 12;
+var totalItems = 0;
 var totalPrice = 0;
 var cartButton;
 
 document.addEventListener("DOMContentLoaded", function (event) {
   cartButton = document.querySelector("#cart-btn");
-  cartButton.innerHTML = "<h1>Cart(" + totalItems + ")</h1>";
+  cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
 });
 
 $.get("http://thiman.me:1337/cart/Rachel", function(response) {

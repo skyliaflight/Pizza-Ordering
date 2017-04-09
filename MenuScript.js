@@ -106,6 +106,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             // Here, we need to update the cart that sits on the server.
+            /*$.ajax(url: "http://thiman.me:1337/cart/Rachel" + cart["id"],
+                  data: null,
+                  type: "DELETE",
+                  dataType: "null");
+            $.post("http://thiman.me:1337/cart/Rachel", cart);*/
 
             console.log(cart);
 
