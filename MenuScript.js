@@ -89,18 +89,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
           // ...add the items to the cart.
           $.get("http://thiman.me:1337/cart/Rachel", function(response) {
             var cart = response[response.length - 1];
+            console.log(cart);
 
             if (!cart.hasOwnProperty(itemName + "[quantity]")) {
+              // Add item to cart
               cart[itemName] = {quantity: addedQuantity,
                                 unitPrice: itemPrice,
                                 price: addedQuantity*itemPrice};
             }
             else {
+              // Add item to cart
               cart[itemName + "[quantity]"] = Number(cart[itemName + "[quantity]"]) + addedQuantity;
               cart[itemName + "[price]"] = Number(cart[itemName + "[quantity]"])*Number(cart[itemName + "[unitPrice]"]);
               //cart[itemName]["quantity"] += addedQuantity;
               //cart[itemName]["price"] = cart[itemName]["quantity"]*cart[itemName]["unitPrice"];
             }
+
+            // Update the total number of items.
+            //totalItems += addedQuantity;
+            cart["totalItems"] = Number(cart["totalItems"]) + addedQuantity;
+            var cartButton = document.querySelector("#cart-btn");
+            cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + cart["totalItems"] + ")";
+
+            // Update the price
+            cart["totalPrice"] = Number(cart["totalPrice"]) + addedQuantity*itemPrice;
 
             // Here, we need to update the cart that sits on the server.
             $.ajax({url: "http://thiman.me:1337/cart/Rachel/" + cart["_id"],
@@ -110,14 +122,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             delete cart["_id"];
             $.post("http://thiman.me:1337/cart/Rachel", cart, function() {
               console.log(cart);
-              if(cart.hasOwnProperty(itemName + "[quantity]")) {
-                console.log(cart[itemName + "[quantity]"]);
-              }
             });
-
-            // Update the total number of items.
-            totalItems += addedQuantity;
-            cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + String(totalItems) + ")";
 
           });
 
