@@ -10,11 +10,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
 });
 
-$.get("http://thiman.me:1337/cart/Rachel", function(response) {
-  console.log(response[0]);
-  console.log(totalItems);
-});
-
 /*var cart = {"Cheese": {quantity: 3,
                   unitPrice: 4,
                   price: 12,
