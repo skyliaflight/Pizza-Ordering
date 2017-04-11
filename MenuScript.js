@@ -87,37 +87,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
           // ...add the items to the cart.
           $.get("http://thiman.me:1337/cart/Rachel", function(response) {
-            var cart = response[response.length - 1];
-            console.log(cart);
+            var serverCart = response[response.length - 1];
+            var clientCart = serverCartToClientCart(serverCart);
 
-            if (!cart.hasOwnProperty(itemName + "[quantity]")) {
+            if (!clientCart.hasOwnProperty(itemName)) {
               // Add item to cart
-              cart[itemName] = {quantity: addedQuantity,
+              clientCart[itemName] = {quantity: addedQuantity,
                                 unitPrice: itemPrice,
                                 price: addedQuantity*itemPrice};
             }
             else {
               // Add item to cart
-              cart[itemName + "[quantity]"] = Number(cart[itemName + "[quantity]"]) + addedQuantity;
-              cart[itemName + "[price]"] = Number(cart[itemName + "[quantity]"])*Number(cart[itemName + "[unitPrice]"]);
+              clientCart[itemName]["quantity"] = Number(clientCart[itemName]["quantity"]) + addedQuantity;
+              clientCart[itemName]["price"] = Number(clientCart[itemName]["quantity"])*Number(clientCart[itemName]["unitPrice"]);
             }
 
             // Update the total number of items.
-            cart["totalItems"] = Number(cart["totalItems"]) + addedQuantity;
+            clientCart["totalItems"] = Number(clientCart["totalItems"]) + addedQuantity;
             var cartButton = document.querySelector("#cart-btn");
-            cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + cart["totalItems"] + ")";
+            cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + clientCart["totalItems"] + ")";
 
             // Update the price
-            cart["totalPrice"] = Number(cart["totalPrice"]) + addedQuantity*itemPrice;
+            clientCart["totalPrice"] = Number(clientCart["totalPrice"]) + addedQuantity*itemPrice;
 
             // Here, we need to update the cart that sits on the server.
-            $.ajax({url: "http://thiman.me:1337/cart/Rachel/" + cart["_id"],
+            $.ajax({url: "http://thiman.me:1337/cart/Rachel/" + serverCart["_id"],
                   data: null,
                   type: "DELETE",
                   dataType: null});
-            delete cart["_id"];
-            $.post("http://thiman.me:1337/cart/Rachel", cart, function() {
-              console.log(cart);
+
+            $.post("http://thiman.me:1337/cart/Rachel", clientCart, function() {
+              console.log(clientCart);
             });
 
           });
