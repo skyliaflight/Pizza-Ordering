@@ -2,58 +2,55 @@
 // Event listener for when the checkout page loads
 // Generates the order summary to the right
 document.addEventListener("DOMContentLoaded", function(event) {
-  // Test the cart conversion.
+  // Generate the order summary by getting the items from the cart
+  // in the database.
   $.get("http://thiman.me:1337/cart/Rachel", function(response) {
-    console.log(serverCartToClientCart(response[0]));
-  });
+    var cart = serverCartToClientCart(response[0]);
+    var orderSummary = document.getElementsByClassName("order-summary")[0];
 
-  // List items from the cart in the order-summary.
-  var orderSummary = document.getElementsByClassName("order-summary")[0];
+    // List items from the cart in the order-summary.
+    for (var item in cart) {
+      if(item != "totalPrice" && item != "totalItems") {
+        var itemEntry = document.createElement("tr");
 
-  for (var item in cart) {
+        var dataEntry = document.createElement("td");
+        dataEntry.innerHTML = String(item);
+        dataEntry.className = "item-name";
+        itemEntry.appendChild(dataEntry);
+
+        dataEntry = document.createElement("td");
+        dataEntry.innerHTML = String(cart[item]["quantity"]);
+        itemEntry.appendChild(dataEntry);
+
+        dataEntry = document.createElement("td");
+        dataEntry.innerHTML = "$" + String(cart[item]["price"]);
+        dataEntry.className = "price";
+        itemEntry.appendChild(dataEntry);
+
+        orderSummary.appendChild(itemEntry);
+      }
+    } // End of listing items from the cart
+
+    // Create and display the total price.
     var itemEntry = document.createElement("tr");
-
     var dataEntry = document.createElement("td");
-    dataEntry.innerHTML = String(item);
-    dataEntry.className = "item-name";
+
+    dataEntry.innerHTML = "Total";
+    dataEntry.className = "total";
     itemEntry.appendChild(dataEntry);
 
     dataEntry = document.createElement("td");
-    dataEntry.innerHTML = String(cart[item]["quantity"]);
+    dataEntry.innerHTML = String(cart["totalItems"]);
     itemEntry.appendChild(dataEntry);
 
     dataEntry = document.createElement("td");
-    dataEntry.innerHTML = "$" + String(cart[item]["price"]);
-    dataEntry.className = "price";
+    dataEntry.innerHTML = "$" + String(cart["totalPrice"]);
+    dataEntry.className = "total price";
     itemEntry.appendChild(dataEntry);
 
     orderSummary.appendChild(itemEntry);
-
-    //totalItems += cart[item]["quantity"];
-    totalPrice += cart[item]["price"];
-  }
-
-  // Create the total price.
-  var itemEntry = document.createElement("tr");
-  var dataEntry = document.createElement("td");
-
-  dataEntry.innerHTML = "Total";
-  dataEntry.className = "total";
-  itemEntry.appendChild(dataEntry);
-
-  dataEntry = document.createElement("td");
-  dataEntry.innerHTML = String(totalItems);
-  itemEntry.appendChild(dataEntry);
-
-  dataEntry = document.createElement("td");
-  dataEntry.innerHTML = "$" + String(totalPrice);
-  dataEntry.className = "total price";
-  itemEntry.appendChild(dataEntry);
-
-  orderSummary.appendChild(itemEntry);
-
-  // Update the cart button.
-  cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
+    // End of creating total price
+  });
 
   // Copy delivery address to billing address when the user clicks
   // the right checkbox.
@@ -75,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       zipCodes[1].value = "";
     }
 
-  });
+  }); // End of copying delivery address to billing address
 
   // Check content when submit button gets clicked.
   var submitButton = this.querySelector("#place-order-btn");
@@ -89,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else {
         return true;
       }
-    };
+    };  // End of function for matching
 
     // Check the phone number
     var phoneNumbers = document.getElementsByName("phone");

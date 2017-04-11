@@ -18,7 +18,7 @@ var serverCartToClientCart = function(serverCart) {
 
   // Go through the attributes in the server's cart.
   for(serverItem in serverCart) {
-  // If the attribute is totalPrice or totalItems, copy it to the new cart.
+    // If the attribute is totalPrice or totalItems, copy it to the new cart.
     if(serverItem === "totalPrice" || serverItem === "totalItems") {
       clientCart[serverItem] = serverCart[serverItem];
     }
@@ -40,7 +40,8 @@ var serverCartToClientCart = function(serverCart) {
         clientCart[clientItem][clientItemAttribute] = serverCart[serverItem];
       }
     }
-  }
+    
+  } // End of looping through the items in the serverCart
 
   return clientCart;
-};
+};  // End of serverCartToClientCart

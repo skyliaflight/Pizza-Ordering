@@ -35,8 +35,7 @@ var createMenuEntry = function(item) {
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
     // Generate the menu. This version pulls the menu items from
-    // a database server at the given URL. In the offline version,
-    // the variable menuItems gets imported in the html code.
+    // a database server at the given URL.
     $.get("http://thiman.me:1337/menu/Rachel", function(response) {
       var menuItems = response;
       var menuArea = document.getElementsByTagName("body")[0].querySelector("#menu");
@@ -101,12 +100,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
               // Add item to cart
               cart[itemName + "[quantity]"] = Number(cart[itemName + "[quantity]"]) + addedQuantity;
               cart[itemName + "[price]"] = Number(cart[itemName + "[quantity]"])*Number(cart[itemName + "[unitPrice]"]);
-              //cart[itemName]["quantity"] += addedQuantity;
-              //cart[itemName]["price"] = cart[itemName]["quantity"]*cart[itemName]["unitPrice"];
             }
 
             // Update the total number of items.
-            //totalItems += addedQuantity;
             cart["totalItems"] = Number(cart["totalItems"]) + addedQuantity;
             var cartButton = document.querySelector("#cart-btn");
             cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + cart["totalItems"] + ")";
