@@ -1,54 +1,46 @@
-// Cart object contains menu item names paired with quantities.
-/*var cart = {};*/
-// Track the total number of items next to the cart button.
-//var totalItems = 0;
-var totalPrice = 0;
-//var cartButton;
 
+// When any page on the website loads, do the following.
 document.addEventListener("DOMContentLoaded", function (event) {
-  //cartButton = document.querySelector("#cart-btn");
-
   // Get the cart from the server and use that to determine
-  // the current total items and total price.
+  // the current total items.
   $.get("http://thiman.me:1337/cart/Rachel", function(response) {
     var cart = response[response.length - 1];
-    var totalItems = cart["totalItems"];
     var cartButton = document.querySelector("#cart-btn");
-    cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
+    cartButton.innerHTML = "<h1>Cart (" + cart["totalItems"] + ")</h1>";
   });
 
 });
 
-/*var cart = {"Cheese": {quantity: 3,
-                  unitPrice: 4,
-                  price: 12,
-                  updateQuantity: function(addition) {
-                    this.quantity += addition;
-                    this.price = this.quantity*this.unitPrice;
-                  }
-                },
-        "Pepperoni": {quantity: 3,
-                          unitPrice: 5,
-                          price: 15,
-                          updateQuantity: function(addition) {
-                            this.quantity += addition;
-                            this.price = this.quantity*this.unitPrice;
-                          }
-                        },
-        "Mushroom": {quantity: 2,
-                          unitPrice: 3,
-                          price: 6,
-                          updateQuantity: function(addition) {
-                            this.quantity += addition;
-                            this.price = this.quantity*this.unitPrice;
-                          }
-                        },
-        "Vegetarian Combo": {quantity: 4,
-                          unitPrice: 2.5,
-                          price: 10,
-                          updateQuantity: function(addition) {
-                            this.quantity += addition;
-                            this.price = this.quantity*this.unitPrice;
-                          }
-                        }
-        }*/
+// When the server returns cart, we must convert it to a
+// format our client-side of the program can read.
+var serverCartToClientCart = function(serverCart) {
+  var clientCart = {}
+
+  // Go through the attributes in the server's cart.
+  for(serverItem in serverCart) {
+  // If the attribute is totalPrice or totalItems, copy it to the new cart.
+    if(serverItem === "totalPrice" || serverItem === "totalItems") {
+      clientCart[serverItem] = serverCart[serverItem];
+    }
+
+    // If the attribute name contains "[quantity]", "[price]", or "[unitPrice]",
+    // copy the attribute to the appropriate nested object.
+    var serverItemMatch = serverItem.match("quantity|unitPrice|price");
+
+    if(serverItemMatch != null) {
+      var clientItemAttribute = serverItemMatch[0];
+      var clientItem = serverItem.substring(0, serverItem.indexOf(clientItemAttribute)-1);
+      //clientItemAttribute = clientItemAttribute.substring(1, clientItemAttribute.length);
+
+      if(clientCart.hasOwnProperty(clientItem)) {
+        clientCart[clientItem][clientItemAttribute] = serverCart[serverItem];
+      }
+      else {
+        clientCart[clientItem] = {};
+        clientCart[clientItem][clientItemAttribute] = serverCart[serverItem];
+      }
+    }
+  }
+
+  return clientCart;
+};

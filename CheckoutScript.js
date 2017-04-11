@@ -1,10 +1,12 @@
-// Find a way to perfect the function of the checkbox
-// for copying the delivery address to the billing
-// address.
 
 // Event listener for when the checkout page loads
 // Generates the order summary to the right
 document.addEventListener("DOMContentLoaded", function(event) {
+  // Test the cart conversion.
+  $.get("http://thiman.me:1337/cart/Rachel", function(response) {
+    console.log(serverCartToClientCart(response[0]));
+  });
+
   // List items from the cart in the order-summary.
   var orderSummary = document.getElementsByClassName("order-summary")[0];
 
@@ -50,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   orderSummary.appendChild(itemEntry);
 
+  // Update the cart button.
   cartButton.innerHTML = "<h1>Cart (" + totalItems + ")</h1>";
 
   // Copy delivery address to billing address when the user clicks
@@ -69,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     else {
       streetAddresses[1].value = "";
       cities[1].value = "";
-      zipCodes[1].value = "";       
+      zipCodes[1].value = "";
     }
 
   });
