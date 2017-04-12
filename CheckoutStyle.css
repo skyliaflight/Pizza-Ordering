@@ -2,7 +2,7 @@
 fieldset{
 	border: solid 5px orange;
 	width: 600px;
-	margin: 30px 0 30px 100px;
+	margin: 0 0 30px 100px;
 }
 
 input{
@@ -20,7 +20,8 @@ select{
 .order-summary{
 	border: solid 5px orange;
 	width: 300px;
-	margin: 15px 100px 0 0;
+	margin: 10px 100px 0 0;
+	padding: 10px;
 	position: absolute;
 	top: 0;
 	right: 0;

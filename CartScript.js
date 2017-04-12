@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         itemEntry.appendChild(dataEntry);
 
         dataEntry = document.createElement("td");
-        dataEntry.innerHTML = String(cart[item]["quantity"]);
+        dataEntry.appendChild(createQuantityControls());
+        dataEntry.querySelector(".quantity-field").innerHTML = String(cart[item]["quantity"]);
         itemEntry.appendChild(dataEntry);
 
         dataEntry = document.createElement("td");
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     dataEntry = document.createElement("td");
     dataEntry.innerHTML = cart["totalItems"];
+    dataEntry.id = "total-items";
     itemEntry.appendChild(dataEntry);
 
     dataEntry = document.createElement("td");
@@ -50,6 +52,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     orderSummary.appendChild(itemEntry);
 
-  });
+  }); // End of listing items from the cart into the order summary
 
 }) // End of event listner

@@ -1,3 +1,6 @@
+nav {
+	margin-bottom: 35px;
+}
 
 .navigation{
 	text-align: center;
@@ -25,6 +28,35 @@ a{
 
 .row{
 	width: 100%;
+}
+
+.increment-btn{
+	border-radius: 5px;
+	margin: 5px;
+}
+
+.decrement-btn{
+	border-radius: 5px;
+	margin: 5px;
+}
+
+* .inc-dec-input{
+	text-align: center;
+}
+
+.inc-dec-input div{
+	display: inline-block;
+	border: solid 1px orange;
+	padding: 7px 10px;
+}
+
+.inc-dec-input div p{
+	padding: 0;
+	margin: 0;
+}
+
+#total-items {
+	text-align: center;
 }
 
 .proceed-btn{

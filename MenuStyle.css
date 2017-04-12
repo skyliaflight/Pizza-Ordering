@@ -18,27 +18,6 @@
 	height: 150px;
 }
 
-.increment-btn{
-	border-radius: 5px;
-	margin: 5px;
-}
-
-.decrement-btn{
-	border-radius: 5px;
-	margin: 5px;
-}
-
-.inc-dec-input div{
-	display: inline-block;
-	border: solid 1px orange;
-	padding: 7px 10px;
-}
-
-.inc-dec-input div p{
-	padding: 0;
-	margin: 0;
-}
-
 .add-btn{
 	background-color: orange;
 	color: white;
