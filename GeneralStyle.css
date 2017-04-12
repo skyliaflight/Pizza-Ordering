@@ -30,6 +30,10 @@ a{
 	width: 100%;
 }
 
+.item-quantity-cell{
+	text-align: center;
+}
+
 .increment-btn{
 	border-radius: 5px;
 	margin: 5px;
@@ -38,10 +42,6 @@ a{
 .decrement-btn{
 	border-radius: 5px;
 	margin: 5px;
-}
-
-* .inc-dec-input{
-	text-align: center;
 }
 
 .inc-dec-input div{
@@ -55,6 +55,12 @@ a{
 	margin: 0;
 }
 
+.total{
+	padding: 10px 20px 10px 20px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
 #total-items {
 	text-align: center;
 }
@@ -66,6 +72,15 @@ a{
 	background: orange;
 	width: 200px;
 	margin: 20px 0 20px 155px;
+}
+
+.update-btn{
+	text-align: center;
+	color: white;
+	width: 200px;
+	padding: 1px;
+	background: orange;
+	margin: 20px;
 }
 
 .footer{

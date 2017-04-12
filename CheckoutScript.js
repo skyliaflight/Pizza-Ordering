@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         dataEntry = document.createElement("td");
         dataEntry.innerHTML = String(cart[item]["quantity"]);
+        dataEntry.className = "item-quantity-cell";
         itemEntry.appendChild(dataEntry);
 
         dataEntry = document.createElement("td");
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     dataEntry = document.createElement("td");
     dataEntry.innerHTML = String(cart["totalItems"]);
+    dataEntry.className = "total";
     itemEntry.appendChild(dataEntry);
 
     dataEntry = document.createElement("td");

@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         dataEntry = document.createElement("td");
         dataEntry.appendChild(createQuantityControls());
+        dataEntry.className = "item-quantity-cell";
         dataEntry.querySelector(".quantity-field").innerHTML = String(cart[item]["quantity"]);
         itemEntry.appendChild(dataEntry);
 
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     dataEntry = document.createElement("td");
     dataEntry.innerHTML = cart["totalItems"];
     dataEntry.id = "total-items";
+    dataEntry.className = "total";
     itemEntry.appendChild(dataEntry);
 
     dataEntry = document.createElement("td");
@@ -52,6 +54,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     orderSummary.appendChild(itemEntry);
 
+    // Add a button to update the cart when the user changes quantities.
+    updateButton = document.createElement("div");
+    updateButton.innerHTML = "<h3>Update Cart</h3>"
+    updateButton.className = "update-btn";
+    orderSummary.appendChild(updateButton);
+
   }); // End of listing items from the cart into the order summary
+
+  // Creates an event listener for the increment buttons.
+  $('.order-summary').on('click', '.increment-btn', function(event) {
+    var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
+    var quantity = Number(quantityField.innerHTML);
+    quantity = quantity + 1;
+    quantityField.innerHTML = String(quantity);
+  }); // End of code for incrementing quantity to add
+
+  // Creates an event listener for the decrement buttons.
+  $('.order-summary').on('click', '.decrement-btn', function(event) {
+    var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
+    var quantity = Number(quantityField.innerHTML);
+
+    if (quantity > 0) {
+        quantity = quantity - 1;
+        quantityField.innerHTML = String(quantity);
+    }
+  }); // End of code for decrementing quantity to add
 
 }) // End of event listner
