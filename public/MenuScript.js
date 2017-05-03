@@ -32,11 +32,25 @@ var createMenuEntry = function(item) {
 } // End of function for generating menu entry html code
 
 
+// Searches the cart's array of items for an
+// item with the given name. Returns its index
+// if applicable. Returns -1 otherwise.
+var findCartItem = function(itemName, cartArray){
+  for (var i = 0; i < cartArray.length; i++) {
+    if (cartArray[i]["name"] === itemName){
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
     // Generate the menu. This version pulls the menu items from
     // a database server at the given URL.
-    $.get("http://thiman.me:1337/menu/Rachel", function(response) {
+    $.get("http://localhost:3000/menu", function(response) {
       var menuItems = response;
       var menuArea = document.getElementsByTagName("body")[0].querySelector("#menu");
       var currentRow;
@@ -86,43 +100,48 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if (addedQuantity > 0) {
 
           // ...add the items to the cart.
-          $.get("http://thiman.me:1337/cart/Rachel", function(response) {
-            var serverCart = response[response.length - 1];
-            var clientCart = serverCartToClientCart(serverCart);
+          var itemIndex = findCartItem(itemName, globalCart["items"]);
 
-            if (!clientCart.hasOwnProperty(itemName)) {
-              // Add item to cart
-              clientCart[itemName] = {quantity: addedQuantity,
-                                unitPrice: itemPrice,
-                                price: addedQuantity*itemPrice};
-            }
-            else {
-              // Add item to cart
-              clientCart[itemName]["quantity"] = Number(clientCart[itemName]["quantity"]) + addedQuantity;
-              clientCart[itemName]["price"] = Number(clientCart[itemName]["quantity"])*Number(clientCart[itemName]["unitPrice"]);
-            }
+          // We need to see if the array includes an item object with
+          // a name the same as that of the item we try to add.
+          if (itemIndex === -1) {
+            // Add item to cart
+            globalCart["items"].push({name: itemName,
+                              quantity: addedQuantity,
+                              unitPrice: itemPrice,
+                              price: addedQuantity*itemPrice});
 
-            // Update the total number of items.
-            clientCart["totalItems"] = Number(clientCart["totalItems"]) + addedQuantity;
-            var cartButton = document.querySelector("#cart-btn");
-            cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + clientCart["totalItems"] + ")";
+            /*var testItem = new Cart({name: itemName,
+                              quantity: addedQuantity,
+                              unitPrice: itemPrice,
+                              price: addedQuantity*itemPrice});
+            console.log(testItem);*/
+          }
+          else {
+            // Add item to cart
+            globalCart["items"][itemIndex]["quantity"] = Number(globalCart["items"][itemIndex]["quantity"]) + addedQuantity;
+            globalCart["items"][itemIndex]["price"] = Number(globalCart["items"][itemIndex]["quantity"])*Number(globalCart["items"][itemIndex]["unitPrice"]);
+          }
 
-            // Update the price
-            clientCart["totalPrice"] = Number(clientCart["totalPrice"]) + addedQuantity*itemPrice;
+          // Update the total number of items.
+          globalCart["totalItems"] = Number(globalCart["totalItems"]) + addedQuantity;
+          var cartButton = document.querySelector("#cart-btn");
+          cartButton.getElementsByTagName("h1")[0].innerHTML = "Cart (" + globalCart["totalItems"] + ")";
 
-            // Here, we need to update the cart that sits on the server.
-            $.ajax({url: "http://thiman.me:1337/cart/Rachel/" + serverCart["_id"],
-                  data: null,
-                  type: "DELETE",
-                  dataType: null});
+          // Update the price
+          globalCart["totalPrice"] = Number(globalCart["totalPrice"]) + addedQuantity*itemPrice;
 
-            $.post("http://thiman.me:1337/cart/Rachel", clientCart, function() {
-              console.log(clientCart);
-            });
+          // Here, we need to update the cart that sits on the server.
+          // For some reason, the patch does not receive the new array
+          // of items.
+          $.ajax({url: "http://localhost:3000/cart/" + globalCart["_id"],
+                data: globalCart,
+                type: "PATCH",
+                dataType: "json"});
 
-          });
+            console.log(globalCart);
 
-        }
-    }); // End of response for clicking an "Add to Cart" button
+        } // End of response for clicking an "Add to Cart" button
+    });
 
 }); // End of event listener

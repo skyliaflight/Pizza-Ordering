@@ -1,39 +1,36 @@
-// Takes the items stored in the cart and displays them to the page
-// which includes the checkout options.
-var globalCart;
 
 // Event listener for when the cart page loads
 document.addEventListener("DOMContentLoaded", function(event) {
 
   // List items from the cart in the order-summary.
-  $.get("http://thiman.me:1337/cart/Rachel", function(response) {
-    var cart = serverCartToClientCart(response[response.length - 1]);
-    globalCart = response[0];
+  $.get("http://localhost:3000/cart", function(response) {
+    var cart = globalCart;//serverCartToClientCart(response[response.length - 1]);
+    console.log(globalCart);
     var orderSummary = document.getElementsByClassName("order-summary")[0];
 
-    for (var item in cart) {
-      if(item != "totalItems" && item != "totalPrice") {
-        var itemEntry = document.createElement("tr");
-        itemEntry.className = "item-entry";
+    for (var item in cart["items"][0]) {
+      //if(item != "totalItems" && item != "totalPrice") {
+      var itemEntry = document.createElement("tr");
+      itemEntry.className = "item-entry";
 
-        var dataEntry = document.createElement("td");
-        dataEntry.innerHTML = String(item);
-        dataEntry.className = "item-name";
-        itemEntry.appendChild(dataEntry);
+      var dataEntry = document.createElement("td");
+      dataEntry.innerHTML = String(item);
+      dataEntry.className = "item-name";
+      itemEntry.appendChild(dataEntry);
 
-        dataEntry = document.createElement("td");
-        dataEntry.appendChild(createQuantityControls());
-        dataEntry.className = "item-quantity-cell";
-        dataEntry.querySelector(".quantity-field").innerHTML = String(cart[item]["quantity"]);
-        itemEntry.appendChild(dataEntry);
+      dataEntry = document.createElement("td");
+      dataEntry.appendChild(createQuantityControls());
+      dataEntry.className = "item-quantity-cell";
+      dataEntry.querySelector(".quantity-field").innerHTML = String(cart["items"][0][item]["quantity"]);
+      itemEntry.appendChild(dataEntry);
 
-        dataEntry = document.createElement("td");
-        dataEntry.innerHTML = "$" + String(cart[item]["price"]);
-        dataEntry.className = "price";
-        itemEntry.appendChild(dataEntry);
+      dataEntry = document.createElement("td");
+      dataEntry.innerHTML = "$" + String(cart["items"][0][item]["price"]);
+      dataEntry.className = "price";
+      itemEntry.appendChild(dataEntry);
 
-        orderSummary.appendChild(itemEntry);
-      }
+      orderSummary.appendChild(itemEntry);
+      //}
     }
 
     // Create the total price.
@@ -72,19 +69,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var quantity = Number(quantityField.innerHTML);
     var itemName = this.parentNode.parentNode.parentNode.getElementsByClassName("item-name")[0].innerHTML;
     quantity = quantity + 1;
-    globalCart[itemName + "[quantity]"] = quantity;
+    //globalCart[itemName + "[quantity]"] = quantity;
+    globalCart["items"][itemName][quantity] = quantity;
     quantityField.innerHTML = String(quantity);
 
-    console.log(globalCart);
     globalCart[itemName + "[price]"] = Number(globalCart[itemName + "[price]"]) + Number(globalCart[itemName + "[unitPrice]"]);
-    globalCart["totalPrice"] = Number(globalCart["totalPrice"]) + Number(globalCart[itemName + "[unitPrice]"]);
+    globalCart["items"][itemName][price] = Number(globalCart["items"][itemName][price]) + Number(globalCart["items"][itemName]["unitPrice"]);
+    globalCart["totalPrice"] = Number(globalCart["totalPrice"]) + Number(globalCart["items"][itemName]["unitPrice"]);
     var totalPriceField = document.querySelector('#total-price');
     totalPriceField.innerHTML = "$" + globalCart["totalPrice"];
 
     globalCart["totalItems"] = Number(globalCart["totalItems"]) + 1;
     var totalItemField = document.querySelector('#total-items');
     totalItemField.innerHTML = globalCart["totalItems"];
-    console.log(globalCart);
 
   }); // End of code for incrementing quantity to add
 
@@ -96,19 +93,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     if (quantity > 0) {
         quantity = quantity - 1;
-        globalCart[itemName + "[quantity]"] = quantity;
+        globalCart["items"][itemName]["quantity"] = quantity;
         quantityField.innerHTML = String(quantity);
 
-        console.log(globalCart);
-        globalCart[itemName + "[price]"] = Number(globalCart[itemName + "[price]"]) - Number(globalCart[itemName + "[unitPrice]"]);
-        globalCart["totalPrice"] = Number(globalCart["totalPrice"]) - Number(globalCart[itemName + "[unitPrice]"]);
+        globalCart["items"][itemName]["price"] = Number(globalCart["items"][itemName]["price"]) - Number(globalCart["items"][itemName]["unitPrice"]);
+        globalCart["totalPrice"] = Number(globalCart["totalPrice"]) - Number(globalCart["items"][itemName]["unitPrice"]);
         var totalPriceField = document.querySelector('#total-price');
         totalPriceField.innerHTML = "$" + globalCart["totalPrice"];
 
         globalCart["totalItems"] = Number(globalCart["totalItems"]) - 1;
         var totalItemField = document.querySelector('#total-items');
         totalItemField.innerHTML = globalCart["totalItems"];
-        console.log(globalCart);
     }
   }); // End of code for decrementing quantity to add
 
@@ -117,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   $('.order-summary').on('click', '.update-btn', function() {
     // Put in code to replace the cart on the server.
     $.ajax({
-      url: "http://thiman.me:1337/cart/Rachel/" + globalCart["_id"],
+      url: "http://localhost:3000/cart" + globalCart["_id"],
       data: globalCart,
       type: "PATCH",
       dataType: "json"

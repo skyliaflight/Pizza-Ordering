@@ -1,18 +1,22 @@
+// Takes the items stored in the cart and displays them to the page
+// which includes the checkout options.
+var globalCart;
 
 // When any page on the website loads, do the following.
 document.addEventListener("DOMContentLoaded", function (event) {
   // Get the cart from the server and use that to determine
   // the current total items.
-  $.get("http://thiman.me:1337/cart/Rachel", function(response) {
-    var cart = response[response.length - 1];
+  $.get("http://localhost:3000/cart", function(response) {
+    globalCart = response[response.length - 1];
     var cartButton = document.querySelector("#cart-btn");
-    cartButton.innerHTML = "<h1>Cart (" + cart["totalItems"] + ")</h1>";
+    cartButton.innerHTML = "<h1>Cart (" + globalCart["totalItems"] + ")</h1>";
   });
 
 });
 
 // When the server returns cart, we must convert it to a
-// format our client-side of the program can read.
+// format our client-side of the program can read
+// for easy of generating the menu and summaries.
 var serverCartToClientCart = function(serverCart) {
   var clientCart = {}
 
@@ -40,7 +44,7 @@ var serverCartToClientCart = function(serverCart) {
         clientCart[clientItem][clientItemAttribute] = serverCart[serverItem];
       }
     }
-    
+
   } // End of looping through the items in the serverCart
 
   return clientCart;
