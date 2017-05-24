@@ -4,33 +4,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   // List items from the cart in the order-summary.
   $.get("http://localhost:3000/cart", function(response) {
-    var cart = globalCart;//serverCartToClientCart(response[response.length - 1]);
-    console.log(globalCart);
+    var cart = globalCart;
     var orderSummary = document.getElementsByClassName("order-summary")[0];
 
-    for (var item in cart["items"][0]) {
-      //if(item != "totalItems" && item != "totalPrice") {
+    for (var i = 0; i < cart["items"].length; i++) {
+      item = cart["items"][i];
       var itemEntry = document.createElement("tr");
       itemEntry.className = "item-entry";
 
       var dataEntry = document.createElement("td");
-      dataEntry.innerHTML = String(item);
+      dataEntry.innerHTML = String(item["name"]);
       dataEntry.className = "item-name";
       itemEntry.appendChild(dataEntry);
 
       dataEntry = document.createElement("td");
       dataEntry.appendChild(createQuantityControls());
       dataEntry.className = "item-quantity-cell";
-      dataEntry.querySelector(".quantity-field").innerHTML = String(cart["items"][0][item]["quantity"]);
+      dataEntry.querySelector(".quantity-field").innerHTML = String(item["quantity"]);
       itemEntry.appendChild(dataEntry);
 
       dataEntry = document.createElement("td");
-      dataEntry.innerHTML = "$" + String(cart["items"][0][item]["price"]);
+      dataEntry.innerHTML = "$" + String(item["price"]);
       dataEntry.className = "price";
       itemEntry.appendChild(dataEntry);
 
       orderSummary.appendChild(itemEntry);
-      //}
     }
 
     // Create the total price.
@@ -63,19 +61,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   }); // End of listing items from the cart into the order summary
 
+
   // Creates an event listener for the increment buttons.
   $('.order-summary').on('click', '.increment-btn', function(event) {
     var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
+    var priceField = this.parentNode.parentNode.parentNode.getElementsByClassName("price")[0];
     var quantity = Number(quantityField.innerHTML);
     var itemName = this.parentNode.parentNode.parentNode.getElementsByClassName("item-name")[0].innerHTML;
     quantity = quantity + 1;
-    //globalCart[itemName + "[quantity]"] = quantity;
-    globalCart["items"][itemName][quantity] = quantity;
+
+    var index = findCartItem(itemName, globalCart["items"]);
+
+    if (index === -1) {
+      alert("Error! User's cart was not up to date with the one retrieved from the server.")
+    }
+
+    globalCart["items"][index]["quantity"] = quantity;
     quantityField.innerHTML = String(quantity);
 
-    globalCart[itemName + "[price]"] = Number(globalCart[itemName + "[price]"]) + Number(globalCart[itemName + "[unitPrice]"]);
-    globalCart["items"][itemName][price] = Number(globalCart["items"][itemName][price]) + Number(globalCart["items"][itemName]["unitPrice"]);
-    globalCart["totalPrice"] = Number(globalCart["totalPrice"]) + Number(globalCart["items"][itemName]["unitPrice"]);
+    globalCart["items"][index]["price"] = Number(globalCart["items"][index]["price"]) + Number(globalCart["items"][index]["unitPrice"]);
+    priceField.innerHTML = "$" + globalCart["items"][index]["price"];
+
+    globalCart["totalPrice"] = Number(globalCart["totalPrice"]) + Number(globalCart["items"][index]["unitPrice"]);
     var totalPriceField = document.querySelector('#total-price');
     totalPriceField.innerHTML = "$" + globalCart["totalPrice"];
 
@@ -88,16 +95,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // Creates an event listener for the decrement buttons.
   $('.order-summary').on('click', '.decrement-btn', function(event) {
     var quantityField = this.parentNode.getElementsByClassName("quantity-field")[0];
+    var priceField = this.parentNode.parentNode.parentNode.getElementsByClassName("price")[0];
     var itemName = this.parentNode.parentNode.parentNode.getElementsByClassName("item-name")[0].innerHTML;
     var quantity = Number(quantityField.innerHTML);
 
     if (quantity > 0) {
         quantity = quantity - 1;
-        globalCart["items"][itemName]["quantity"] = quantity;
+
+        var index = findCartItem(itemName, globalCart["items"]);
+
+        if (index === -1) {
+          alert("Error! User's cart was not up to date with the one retrieved from the server.")
+        }
+
+        globalCart["items"][index]["quantity"] = quantity;
         quantityField.innerHTML = String(quantity);
 
-        globalCart["items"][itemName]["price"] = Number(globalCart["items"][itemName]["price"]) - Number(globalCart["items"][itemName]["unitPrice"]);
-        globalCart["totalPrice"] = Number(globalCart["totalPrice"]) - Number(globalCart["items"][itemName]["unitPrice"]);
+        globalCart["items"][index]["price"] = Number(globalCart["items"][index]["price"]) - Number(globalCart["items"][index]["unitPrice"]);
+        priceField.innerHTML = "$" + globalCart["items"][index]["price"];
+
+        globalCart["totalPrice"] = Number(globalCart["totalPrice"]) - Number(globalCart["items"][index]["unitPrice"]);
         var totalPriceField = document.querySelector('#total-price');
         totalPriceField.innerHTML = "$" + globalCart["totalPrice"];
 
@@ -106,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         totalItemField.innerHTML = globalCart["totalItems"];
     }
   }); // End of code for decrementing quantity to add
+
 
   // Update the cart with the current values whenever
   // the user clicks the "Update Cart" button.

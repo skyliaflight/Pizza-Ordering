@@ -31,21 +31,6 @@ var createMenuEntry = function(item) {
   return entrySpace;
 } // End of function for generating menu entry html code
 
-
-// Searches the cart's array of items for an
-// item with the given name. Returns its index
-// if applicable. Returns -1 otherwise.
-var findCartItem = function(itemName, cartArray){
-  for (var i = 0; i < cartArray.length; i++) {
-    if (cartArray[i]["name"] === itemName){
-      return i;
-    }
-  }
-
-  return -1;
-}
-
-
 // Event listener for when the menu page loads
 document.addEventListener("DOMContentLoaded", function(event) {
     // Generate the menu. This version pulls the menu items from

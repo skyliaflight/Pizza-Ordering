@@ -14,6 +14,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 });
 
+// Searches the cart's array of items for an
+// item with the given name. Returns its index
+// if applicable. Returns -1 otherwise.
+var findCartItem = function(itemName, cartArray){
+  for (var i = 0; i < cartArray.length; i++) {
+    if (cartArray[i]["name"] === itemName){
+      return i;
+    }
+  }
+
+  return -1;
+}
+
 // When the server returns cart, we must convert it to a
 // format our client-side of the program can read
 // for easy of generating the menu and summaries.

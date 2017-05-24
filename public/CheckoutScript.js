@@ -4,32 +4,30 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   // Generate the order summary by getting the items from the cart
   // in the database.
-  $.get("http://thiman.me:1337/cart/Rachel", function(response) {
-    var cart = serverCartToClientCart(response[0]);
+  $.get("http://localhost:3000/cart", function(response) {
+    var cart = response[response.length - 1];
     var orderSummary = document.getElementsByClassName("order-summary")[0];
 
     // List items from the cart in the order-summary.
-    for (var item in cart) {
-      if(item != "totalPrice" && item != "totalItems") {
-        var itemEntry = document.createElement("tr");
+    for (var item in cart["items"]) {
+      var itemEntry = document.createElement("tr");
 
-        var dataEntry = document.createElement("td");
-        dataEntry.innerHTML = String(item);
-        dataEntry.className = "item-name";
-        itemEntry.appendChild(dataEntry);
+      var dataEntry = document.createElement("td");
+      dataEntry.innerHTML = String(item["name"]);
+      dataEntry.className = "item-name";
+      itemEntry.appendChild(dataEntry);
 
-        dataEntry = document.createElement("td");
-        dataEntry.innerHTML = String(cart[item]["quantity"]);
-        dataEntry.className = "item-quantity-cell";
-        itemEntry.appendChild(dataEntry);
+      dataEntry = document.createElement("td");
+      dataEntry.innerHTML = String(item["quantity"]);
+      dataEntry.className = "item-quantity-cell";
+      itemEntry.appendChild(dataEntry);
 
-        dataEntry = document.createElement("td");
-        dataEntry.innerHTML = "$" + String(cart[item]["price"]);
-        dataEntry.className = "price";
-        itemEntry.appendChild(dataEntry);
+      dataEntry = document.createElement("td");
+      dataEntry.innerHTML = "$" + String(item["price"]);
+      dataEntry.className = "price";
+      itemEntry.appendChild(dataEntry);
 
-        orderSummary.appendChild(itemEntry);
-      }
+      orderSummary.appendChild(itemEntry);
     } // End of listing items from the cart
 
     // Create and display the total price.
@@ -125,6 +123,34 @@ document.addEventListener("DOMContentLoaded", function(event) {
     for (var i = 0; i < zipCodes.length; i++) {
       if (!matchesExactly(zipCodes[i].value, "[0-9]{5}")) {
         alert("Invalid zipcode");
+      }
+    }
+
+    var passwords = document.getElementsByName("password");
+    var password1 = passwords[0].value;
+    var password2 = passwords[1].value;
+    if(matchesExactly(password1, ".+") || matchesExactly(password2, ".+")) {
+      if(password1 != password2){
+        alert("Passwords do not match.");
+      }
+      else {
+        var account = {
+          firstName: document.getElementsByName("firstname")[0],
+          lastName: document.getElementsByName("lastname")[0],
+          phone: phoneNumbers[0],
+          email: emails[0],
+          streetAddress: streetAddresses[0],
+          city: cities[0],
+          zipCode: zipCodes[0],
+          password: password1
+        };
+
+        $.ajax({url: "http://localhost:3000/account",
+          data: account,
+          type: "POST",
+          method: "POST",
+          dataType: "json"
+        });
       }
     }
 
