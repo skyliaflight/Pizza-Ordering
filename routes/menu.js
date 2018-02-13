@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
-var express = require('express');
-var router = express.Router();  // Handles all the routes
-var MenuItem = require('../models/menu');  // '..' navigates up one route
+const mongoose = require('mongoose');
+const express = require('express');
+const router = express.Router();  // Handles all the routes
+const MenuItem = require('../models/menuItem');  // '..' navigates up one route
 
 // How it handles "post" requests directed to it.
 router.post('/', function(req, res){
   var body =  req.body;
-  console.log(body);
   var newMenuItem = new MenuItem(body); // Body itself is an object. Put it straight in.
+
   newMenuItem.save(function(err, doc) {
     if(err) {
       console.log(err); // The error

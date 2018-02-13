@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 
-var schema = {
+var schema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   phone: String,
   email: String,
-  streetAddress: String,
-  city: String,
-  zipCode: String,
+  mailingAddressId: String,
+  billingAddressId: String,
+  creditCardId: String,
   password: String
-};
+});
 
 module.exports = mongoose.model("Account", schema);

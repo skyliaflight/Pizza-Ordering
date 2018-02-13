@@ -3,11 +3,16 @@
 <html>
 
 <head>
-	<link type="text/css" rel="stylesheet" href="GeneralStyle.css"/>
-	<link type="text/css" rel="stylesheet" href="CheckoutStyle.css"/>
-	<script src="jquery-3.1.1.min.js"></script>
-	<script src="globalUserInfo.js"></script>
-	<script src="CheckoutScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="stylesheets/GeneralStyle.css"/>
+	<link type="text/css" rel="stylesheet" href="stylesheets/CheckoutStyle.css"/>
+	<script src="javascripts/jquery-3.1.1.min.js"></script>
+	<script src="javascripts/js.cookie.js"></script>
+	<script src="javascripts/globalInfoAndFunctions.js"></script>
+	<script src="javascripts/widgets.js"></script>
+	<script src="javascripts/validate.js"></script>
+	<script src="javascripts/order.js"></script>
+	<script src="javascripts/accountManagement.js"></script>
+	<script src="javascripts/CheckoutScript.js"></script>
 </head>
 
 <body>
@@ -15,7 +20,7 @@
 	<!--Navigation-->
 	<nav>
 		<ul class="navigation">
-			<li>
+			<!--<li>
 				<a href="#"><div>
 					<h1>Home</h1>
 				</div></a>
@@ -24,7 +29,7 @@
 				<a href="#"><div>
 					<h1>About</h1>
 				</div></a>
-			</li>
+			</li>-->
 			<li>
 				<a href="index.html"><div>
 					<h1>Menu</h1>
@@ -36,8 +41,8 @@
 				</div></a>
 			</li>
 			<li>
-				<a href="Login.html"><div>
-					<h1>Login</h1>
+				<a href="Account.html"><div id="account-btn">
+					<h1>Hello. Sign in!</h1>
 				</div></a>
 			</li>
 		</ul>
@@ -49,72 +54,72 @@
 	<section class="main-content">
 
 	<!--Personal info and payment input-->
-	<form>
+	<form id="clientForm">
 
-		<fieldset>
+		<fieldset id="name-fields">
 		<legend><h2>Name</h2></legend>
 		First:<br>
-		<input type="text" name="firstname"><br>
+		<input type="text" name="firstname" class="first-name-field"><br>
 		Last:<br>
-		<input type="text" name="lastname">
+		<input type="text" name="lastname" class="last-name-field">
 		</fieldset>
 
-		<fieldset>
+		<fieldset id="contact-fields">
 		<legend><h2>Contact</h2></legend>
 		Phone:<br>
-		<input type="text" name="phone"><br>
+		<input type="text" name="phone" class="phone-field"><br>
 		Email:<br>
-		<input type="text" name="email">
+		<input type="text" name="email" class="email-field">
 		</fieldset>
 
-		<fieldset>
+		<fieldset id="mailing-address-fields">
 		<legend><h2>Delivery Address</h2></legend>
 		Street Address<br>
-		<input type="text" name="streetaddress"><br>
+		<input type="text" name="streetaddress" class="streetaddress-field"><br>
 		City<br>
-		<input type="text" name="city"><br>
+		<input type="text" name="city" class="city-field"><br>
 		Zip Code<br>
-		<input type="text" name="zipcode"><br>
+		<input type="text" name="zipcode" class="zipcode-field"><br>
 		</fieldset>
 
-		<fieldset>
+		<fieldset id="billing-address-fields">
 		<legend><h2>Billing Address</h2></legend>
 		Same as Delivery Address
 		<input type="checkbox" name="sameAsDeliveryAddr"><br><br>
 		Street Address<br>
-		<input type="text" name="streetaddress"><br>
+		<input type="text" name="streetaddress" class="streetaddress-field"><br>
 		City<br>
-		<input type="text" name="city"><br>
+		<input type="text" name="city" class="city-field"><br>
 		Zip Code<br>
-		<input type="text" name="zipcode"><br>
+		<input type="text" name="zipcode" class="zipcode-field"><br>
 		</fieldset>
 
-		<fieldset>
+		<fieldset id="payment-fields">
 		<legend><h2>Payment Info</h2></legend>
 		Payment Method<br>
-		<select>
+		<select name="paymentmethod" class="payment-method-selector">
 			<option value="cash">Cash</option>
 			<option value="mastercard">MasterCard</option>
 			<option value="americanexpress">American Express</option>
 			<option value="discover">Discover</option>
 		</select><br>
 		Name on Card<br>
-		<input type="text" name="cardholder"><br>
+		<input type="text" name="cardholder" class="cardholder-field"><br>
 		Card Number<br>
-		<input type="text" name="cardnumber"><br>
+		<input type="text" name="cardnumber" class="cardnumber-field"><br>
 		Expiration Date<br>
-		<input type="text" name="expirationdate"><br>
+		<input type="text" name="expirationdate" class="expirationdate-field"><br>
 		Security Code<br>
-		<input type="text" name="securitycode"><br>
+		<input type="text" name="securitycode" class="securitycode-field"><br>
 		</fieldset>
 
-		<fieldset>
-		<legend><h2>Create Account (Optional)</h2></legend>
+		<!--<fieldset>
+		<legend><h2>Create Account</h2></legend>
 		Password<br>
 		<input type="password" name="password"><br>
 		Re-enter Password<br>
 		<input type="password" name="password"><br>
-		</fieldset>
+		</fieldset>-->
 
 		<input type="submit" value="Place Order" class="proceed-btn" id="place-order-btn">
 

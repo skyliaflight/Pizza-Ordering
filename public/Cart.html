@@ -3,12 +3,15 @@
 <html>
 
 <head>
-	<link type="text/css" rel="stylesheet" href="GeneralStyle.css"/>
-	<link type="text/css" rel="stylesheet" href="CartStyle.css"/>
-	<script src="jquery-3.1.1.min.js"></script>
-	<script src="globalUserInfo.js"></script>
-	<script src="widgetCreator.js"></script>
-	<script src="CartScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="stylesheets/GeneralStyle.css"/>
+	<link type="text/css" rel="stylesheet" href="stylesheets/CartStyle.css"/>
+	<script src="javascripts/jquery-3.1.1.min.js"></script>
+	<script src="javascripts/js.cookie.js"></script>
+	<script src="javascripts/globalInfoAndFunctions.js"></script>
+	<script src="javascripts/widgets.js"></script>
+	<script src="javascripts/cart.js"></script>
+	<script src="javascripts/accountManagement.js"></script>
+	<script src="javascripts/CartScript.js"></script>
 </head>
 
 <body>
@@ -16,7 +19,7 @@
 	<!--Navigation-->
 	<nav>
 		<ul class="navigation">
-			<li>
+			<!--<li>
 				<a href="#"><div>
 					<h1>Home</h1>
 				</div></a>
@@ -25,7 +28,7 @@
 				<a href="#"><div>
 					<h1>About</h1>
 				</div></a>
-			</li>
+			</li>-->
 			<li>
 				<a href="index.html"><div>
 					<h1>Menu</h1>
@@ -37,29 +40,22 @@
 				</div></a>
 			</li>
 			<li>
-				<a href="Login.html"><div>
-					<h1>Login</h1>
+				<a href="Account.html"><div id="account-btn">
+					<h1>Hello. Sign in!</h1>
 				</div></a>
 			</li>
 		</ul>
 	</nav>
 	<!--End of Navigation-->
 
+<!--Main content-->
+<section class="main-content">
+
 	<!--Order summary-->
 <table class="order-summary">
 </table>
 
-	<a href="Login.html">
-	<div class="proceed-btn">
-		<h3>Checkout as Member</h3>
-	</div>
-	</a>
-
-	<a href="Checkout.html">
-		<div class="proceed-btn">
-			<h3>Checkout as Guest</h3>
-		</div>
-	</a>
+</section>
 
 	<!--Footer-->
 	<section class="footer">
