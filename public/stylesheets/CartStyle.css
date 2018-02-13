@@ -1,0 +1,26 @@
+
+.main-content{
+	background-color: white;
+	padding: 50px 0;
+	width: 70%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.order-summary{
+	background-color: white;
+	position: relative;
+	border: solid 5px #F29A4E;
+	margin: 50px 0 50px 155px;
+	padding: 20px;
+	width: 50%;
+}
+
+.item-name{
+	padding: 10px 20px 10px 20px;
+}
+
+.price{
+	text-align: right;
+	padding: 10px 20px 10px 20px;
+}

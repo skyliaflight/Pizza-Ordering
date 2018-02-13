@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var schema = {
+  _id: String,
   name: String,
   quantity: Number,
   unitPrice: Number,

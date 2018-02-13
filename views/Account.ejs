@@ -1,0 +1,148 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="stylesheets/GeneralStyle.css"/>
+	<link type="text/css" rel="stylesheet" href="stylesheets/AccountStyle.css"/>
+	<script src="javascripts/jquery-3.1.1.min.js"></script>
+	<script src="javascripts/js.cookie.js"></script>
+	<script src="javascripts/accountManagement.js"></script>
+	<script src="javascripts/validate.js"></script>
+	<script src="javascripts/globalInfoAndFunctions.js"></script>
+	<script src="javascripts/AccountScript.js"></script>
+</head>
+
+<body>
+
+	<!--Navigation-->
+	<nav>
+		<ul class="navigation">
+			<!--<li>
+				<a href="#"><div>
+					<h1>Home</h1>
+				</div></a>
+			</li>
+			<li>
+				<a href="#"><div>
+					<h1>About</h1>
+				</div></a>
+			</li>-->
+			<li>
+				<a href="index.html"><div>
+					<h1>Menu</h1>
+				</div></a>
+			</li>
+			<li>
+				<a href="Cart.html"><div id="cart-btn">
+					<h1>Cart (0)</h1>
+				</div></a>
+			</li>
+			<li>
+				<a href="Account.html"><div id="account-btn">
+					<h1>Hello, <%= usersFirstName %>!</h1>
+				</div></a>
+			</li>
+		</ul>
+	</nav>
+	<!--End of Navigation-->
+
+	<!--This section is given a non-static position so we can position
+	its children using "absolute".-->
+	<section class="main-content">
+
+	<button id="logout-btn">Log Out</button>
+
+	<form id="name-form">
+		<fieldset id="name-fields">
+		<legend><h2>Name</h2></legend>
+		First:<br>
+		<input type="text" name="firstname" class="first-name-field"><br>
+		Last:<br>
+		<input type="text" name="lastname" class="last-name-field"><br>
+		<input type="submit" value="Update Info" class="update-btn">
+		</fieldset>
+	</form>
+
+	<form id="contact-form">
+		<fieldset id="contact-fields">
+		<legend><h2>Contact</h2></legend>
+		Phone:<br>
+		<input type="text" name="phone" class="phone-field"><br>
+		Email:<br>
+		<input type="text" name="email" class="email-field"><br>
+		<input type="submit" value="Update Info" class="update-btn">
+		</fieldset>
+	</form>
+
+	<form id="mailing-address-form">
+		<fieldset id="mailing-address-fields">
+		<legend><h2>Delivery Address</h2></legend>
+		Street Address<br>
+		<input type="text" name="streetaddress" class="streetaddress-field"><br>
+		City<br>
+		<input type="text" name="city" class="city-field"><br>
+		Zip Code<br>
+		<input type="text" name="zipcode" class="zipcode-field"><br>
+		<input type="submit" value="Update Info" class="update-btn">
+		</fieldset>
+	</form>
+
+	<form id="billing-address-form">
+		<fieldset id="billing-address-fields">
+		<legend><h2>Billing Address</h2></legend>
+		Street Address<br>
+		<input type="text" name="streetaddress" class="streetaddress-field"><br>
+		City<br>
+		<input type="text" name="city" class="city-field"><br>
+		Zip Code<br>
+		<input type="text" name="zipcode" class="zipcode-field"><br>
+		<input type="submit" value="Update Info" class="update-btn">
+		</fieldset>
+	</form>
+
+	<form id="payment-form">
+		<fieldset id="payment-fields">
+		<legend><h2>Payment Info</h2></legend>
+		Payment Method<br>
+		<select name="paymentmethod" class="payment-method-selector">
+			<option value="cash">Cash</option>
+			<option value="mastercard">MasterCard</option>
+			<option value="americanexpress">American Express</option>
+			<option value="discover">Discover</option>
+		</select><br>
+		Name on Card<br>
+		<input type="text" name="cardholder" class="cardholder-field"><br>
+		Card Number<br>
+		<input type="text" name="cardnumber" class="cardnumber-field"><br>
+		Expiration Date<br>
+		<input type="text" name="expirationdate" class="expirationdate-field"><br>
+		Security Code<br>
+		<input type="text" name="securitycode" class="securitycode-field"><br>
+		<input type="submit" value="Update Info" class="update-btn">
+		</fieldset>
+	</form>
+
+	<form id="password-form">
+		<fieldset id="password-fields">
+		<legend><h2>Change Password</h2></legend>
+		<!--Current Password<br>
+		<input type="password" name="currentPassword"><br>-->
+		New Password<br>
+		<input type="password" name="newPassword" class="password-field"><br>
+		Re-enter New Password<br>
+		<input type="password" name="newPassword" class="password-field"><br>
+		<input type="submit" value="Update Info" class="update-btn">
+		</fieldset>
+	</form>
+
+	</section>
+	<!--End of main-content-->
+
+	<!--Footer-->
+	<div class="footer">
+		<p>Email: email@gmail.com</p>
+		<p>Phone: 425-298-1984</p>
+	</div>
+
+</body>
+
+</html>

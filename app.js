@@ -1,16 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // This ensures mongoose will connect only once
 // rather than in each route.
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/pizza-ordering'); // At port 27017
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,15 +27,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // The directories to which we will route certain requests
 var index = require('./routes/index');
 var menu = require('./routes/menu');
-var cart = require('./routes/cart');
 var account = require('./routes/account');
+var address = require('./routes/address');
+var creditCard = require('./routes/creditCard');
+var order = require('./routes/order');
+var confirmation = require('./routes/confirmation');
+var error = require('./routes/error');
 
 app.use('/', index);
 app.use('/menu', menu);
-app.use('/menu/[a-z,0-9]+', menu);
-app.use('/cart', cart);
-app.use('/cart/[a-z,0-9]+', cart);
 app.use('/account', account);
+app.use('/address', address);
+app.use('/creditCard', creditCard);
+app.use('/order', order);
+app.use('/confirmation', confirmation);
+app.use('/error', error);
 
 // This will happen if none of the above routes
 // are what the user requests.
