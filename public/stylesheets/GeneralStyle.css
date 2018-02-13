@@ -1,0 +1,158 @@
+
+html{
+	height: 100%;
+}
+
+body{
+	background: url(../images/PizzaBackground.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin: 0;
+	padding: 0 0 150px 0;
+	min-height: 100%;
+	position: relative;
+}
+
+nav {
+	margin-bottom: 35px;
+}
+
+button {
+	background-color: #FF8112;
+	color: white;
+}
+
+.alert-box{
+	position: fixed;
+	width: 300px;
+	min-height: 150px;
+	background-color: white;
+	border: solid 5px #F29A4E;
+	padding: 10px 20px;
+	top: 50%;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -100px;
+	font-size: 20px;
+}
+
+.alert-box button{
+	width: 150px;
+	height: 40px;
+	font-size: 20px;
+	position: absolute;
+	bottom: 10px;
+	left: 20px;
+	cursor: pointer;
+}
+
+.navigation{
+	text-align: center;
+	margin: 0;
+	padding: 20px;
+	background: #F29A4E;
+}
+
+.navigation li{
+	display: inline-block;
+}
+
+.navigation li div{
+	background-color: #FF8112;
+	min-width: 150px;
+	text-align: center;
+	color: white;
+	padding: 2px 15px;
+}
+
+.navigation li div:hover{
+	background-color: #FFBB80;
+}
+
+a{
+	color: white;
+	text-decoration: none;
+}
+
+.row{
+	width: 100%;
+}
+
+.error-message{
+	text-align: center;
+}
+
+.item-quantity-cell{
+	text-align: center;
+}
+
+.increment-btn{
+	border-radius: 5px;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.decrement-btn{
+	border-radius: 5px;
+	margin: 5px;
+	cursor: pointer;
+}
+
+.inc-dec-input div{
+	display: inline-block;
+	border: solid 1px #F29A4E;
+	padding: 7px 10px;
+}
+
+.inc-dec-input div p{
+	padding: 0;
+	margin: 0;
+}
+
+.total{
+	padding: 10px 20px 10px 20px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+#total-items {
+	text-align: center;
+}
+
+.proceed-btn{
+	text-align: center;
+	color: white;
+	background: #FF8112;
+	padding: 2px 0;
+	width: 200px;
+	margin: 10px 0 10px 155px;
+	cursor: pointer;
+}
+
+.update-btn{
+	text-align: center;
+	color: white;
+	background: #FF8112;
+	font-size: 15px;
+	width: 150px;
+	padding: 5px;
+	margin: 15px 0;
+	cursor: pointer;
+}
+
+.footer{
+	background-color: #F29A4E;
+	padding: 30px 0;
+	width: 100%;
+	margin-top: 50px;
+	position: absolute;
+	bottom: 0;
+}
+
+.footer p{
+	color: white;
+	text-align: center;
+	margin: 0;
+}

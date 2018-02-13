@@ -1,0 +1,58 @@
+
+form{
+	width: 50%;
+}
+
+fieldset{
+	background-color: white;
+	border: solid 5px #F29A4E;
+	width: 100%;
+	margin: 0 0 20px 0;
+}
+
+input{
+	margin-bottom: 15px;
+}
+
+select{
+	margin-bottom: 15px;
+}
+
+.main-content{
+	position: relative;
+	background-color: white;
+	padding: 40px;
+	width: 75%;
+	margin: 0 auto;
+}
+
+.order-summary{
+	background-color: white;
+	border: solid 5px #F29A4E;
+	width: 300px;
+	margin: 10px 100px 0 0;
+	padding: 10px;
+	position: absolute;
+	top: 41px;
+	right: -40px;
+}
+
+.item-name{
+	padding: 5px 20px 5px 20px;
+}
+
+.price{
+	text-align: right;
+	padding: 5px 20px 5px 20px;
+}
+
+.total{
+	padding: 10px 20px 10px 20px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+#place-order-btn{
+	margin: 30px 0 30px 0;
+	font-size: 25px;
+}

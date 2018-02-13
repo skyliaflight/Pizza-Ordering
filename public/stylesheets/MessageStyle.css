@@ -1,0 +1,9 @@
+
+.main-content{
+	background-color: white;
+  border: solid 5px #F29A4E;
+	padding: 50px 0;
+	width: 70%;
+	height: 100%;
+	margin: 50px auto;
+}
